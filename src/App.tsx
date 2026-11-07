@@ -17,7 +17,8 @@ import {
   X,
   Sparkles,
   Download,
-  Loader2
+  Loader2,
+  Copy
 } from 'lucide-react';
 
 export type Language = 'pt' | 'en';
@@ -508,17 +509,42 @@ function wrapText(
   return curY + lineHeight;
 }
 
-function loadImage(src: string): Promise<HTMLImageElement | null> {
+async function loadImage(src: string): Promise<HTMLImageElement | null> {
+  // Strategy 1: Fetch as blob to guarantee non-tainted canvas on GitHub Pages
+  try {
+    const res = await fetch(src);
+    if (res.ok) {
+      const blob = await res.blob();
+      const objectUrl = URL.createObjectURL(blob);
+      return await new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = () => {
+          URL.revokeObjectURL(objectUrl);
+          resolve(null);
+        };
+        img.src = objectUrl;
+      });
+    }
+  } catch (err) {
+    console.warn('Blob fetch failed, falling back to direct load', err);
+  }
+
+  // Strategy 2: Pre-rendered DOM element
+  try {
+    const domImg = document.getElementById('winner-profile-img') as HTMLImageElement | null;
+    if (domImg && domImg.complete && domImg.naturalWidth > 0) {
+      return domImg;
+    }
+  } catch {
+    // proceed to strategy 3
+  }
+
+  // Strategy 3: Standard Image loading
   return new Promise((resolve) => {
     const img = new Image();
-    img.crossOrigin = 'anonymous';
     img.onload = () => resolve(img);
-    img.onerror = () => {
-      const fallbackImg = new Image();
-      fallbackImg.onload = () => resolve(fallbackImg);
-      fallbackImg.onerror = () => resolve(null);
-      fallbackImg.src = src;
-    };
+    img.onerror = () => resolve(null);
     img.src = src;
   });
 }
@@ -910,7 +936,7 @@ export default function App() {
     Math.round(((currentQuestionIndex + 1) / totalQuestionsCount) * 100)
   );
 
-  const handleShareResultAsImage = async (mode: 'share' | 'download' = 'share') => {
+  const handleShareResultAsImage = async (mode: 'share' | 'download' | 'copy' = 'share') => {
     if (isGeneratingImage) return;
     setIsGeneratingImage(true);
     setShareToast(null);
@@ -939,6 +965,44 @@ export default function App() {
         return;
       }
 
+      if (mode === 'copy') {
+        let copied = false;
+        if (navigator.clipboard && window.ClipboardItem) {
+          try {
+            await navigator.clipboard.write([
+              new ClipboardItem({ 'image/png': blob })
+            ]);
+            copied = true;
+          } catch (clipErr) {
+            console.warn('Clipboard write error', clipErr);
+          }
+        }
+
+        if (copied) {
+          setShareToast(
+            lang === 'pt'
+              ? '✓ Imagem copiada! Abra a conversa no WhatsApp e cole com Ctrl+V (ou Colar).'
+              : '✓ Image copied! Open WhatsApp chat and paste with Ctrl+V (or Paste).'
+          );
+        } else {
+          triggerDownload();
+          setShareToast(
+            lang === 'pt'
+              ? 'Imagem baixada! No seu dispositivo, selecione a imagem salva para colar/enviar no WhatsApp.'
+              : 'Image downloaded! On your device, attach the downloaded image in WhatsApp.'
+          );
+        }
+        return;
+      }
+
+      // mode === 'share'
+      // Try to also copy to clipboard in parallel so it's ready to paste
+      if (navigator.clipboard && window.ClipboardItem) {
+        navigator.clipboard.write([
+          new ClipboardItem({ 'image/png': blob })
+        ]).catch(() => {});
+      }
+
       const shareTitle = lang === 'pt'
         ? `Quiz de Jornalismo Moderno: Meu perfil é ${winningProfileData.title}`
         : `Modern Journalism Quiz: My role is ${winningProfileData.title}`;
@@ -954,32 +1018,12 @@ export default function App() {
         });
         setShareToast(lang === 'pt' ? 'Card compartilhado com sucesso!' : 'Card shared successfully!');
       } else {
-        // Fallback for browsers without file sharing
         triggerDownload();
-        try {
-          if (navigator.clipboard && window.ClipboardItem) {
-            await navigator.clipboard.write([
-              new ClipboardItem({ 'image/png': blob })
-            ]);
-            setShareToast(
-              lang === 'pt'
-                ? 'Imagem baixada e copiada! Pronta para colar no WhatsApp ou postar no Instagram.'
-                : 'Image downloaded and copied! Ready to paste into WhatsApp or share on Instagram.'
-            );
-          } else {
-            setShareToast(
-              lang === 'pt'
-                ? 'Imagem baixada no seu celular! Pronta para postar no WhatsApp ou Instagram.'
-                : 'Image downloaded to your device! Ready to share on WhatsApp or Instagram.'
-            );
-          }
-        } catch {
-          setShareToast(
-            lang === 'pt'
-              ? 'Imagem baixada no seu celular! Pronta para postar no WhatsApp ou Instagram.'
-              : 'Image downloaded to your device! Ready to share on WhatsApp or Instagram.'
-          );
-        }
+        setShareToast(
+          lang === 'pt'
+            ? '✓ Imagem copiada e baixada! Pronta para colar no WhatsApp ou postar no Instagram.'
+            : '✓ Image copied and downloaded! Ready to paste into WhatsApp or share on Instagram.'
+        );
       }
     } catch (err: any) {
       if (err?.name !== 'AbortError') {
@@ -996,8 +1040,8 @@ export default function App() {
             setTimeout(() => URL.revokeObjectURL(url), 4000);
             setShareToast(
               lang === 'pt'
-                ? 'Imagem baixada no seu celular! Pronta para postar no WhatsApp ou Instagram.'
-                : 'Image downloaded to your device! Ready to share on WhatsApp or Instagram.'
+                ? 'Imagem baixada no seu celular!'
+                : 'Image downloaded to your device!'
             );
           }
         } catch {
@@ -1006,7 +1050,7 @@ export default function App() {
       }
     } finally {
       setIsGeneratingImage(false);
-      setTimeout(() => setShareToast(null), 4500);
+      setTimeout(() => setShareToast(null), 5000);
     }
   };
 
@@ -1037,6 +1081,7 @@ export default function App() {
     vote: lang === 'pt' ? "voto" : "vote",
     votes: lang === 'pt' ? "votos" : "votes",
     shareImageBtn: lang === 'pt' ? "Compartilhar Imagem" : "Share Image",
+    copyImageBtn: lang === 'pt' ? "Copiar Imagem" : "Copy Image",
     downloadImageBtn: lang === 'pt' ? "Baixar Imagem" : "Download Image",
     generatingImage: lang === 'pt' ? "Gerando card..." : "Generating card...",
     shareHint: lang === 'pt'
@@ -1423,9 +1468,19 @@ export default function App() {
                     </button>
 
                     <button
-                      onClick={() => handleShareResultAsImage('download')}
+                      onClick={() => handleShareResultAsImage('copy')}
                       disabled={isGeneratingImage}
                       className="bg-transparent hover:bg-[#F5FFF8] active:scale-[0.98] text-[#202923] border border-[#202923] font-medium py-2.5 px-4 rounded-full transition-all duration-300 ease-fluid text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer"
+                      title={lang === 'pt' ? "Copiar imagem para colar diretamente no WhatsApp com Ctrl+V" : "Copy image to paste into WhatsApp with Ctrl+V"}
+                    >
+                      <Copy className="w-3.5 h-3.5 text-[#202923]" />
+                      <span>{t.copyImageBtn}</span>
+                    </button>
+
+                    <button
+                      onClick={() => handleShareResultAsImage('download')}
+                      disabled={isGeneratingImage}
+                      className="bg-transparent hover:bg-[#F5FFF8] active:scale-[0.98] text-[#202923] border border-[#D6EEDD] hover:border-[#202923] font-medium py-2.5 px-4 rounded-full transition-all duration-300 ease-fluid text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer"
                       title={lang === 'pt' ? "Baixar imagem no dispositivo" : "Download image to device"}
                     >
                       <Download className="w-3.5 h-3.5 text-[#202923]" />

@@ -208,7 +208,12 @@
                                 <span class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center shrink-0">↗</span>
                             </button>
 
-                            <button id="result-download-img-btn" onclick="shareResultAsImage('download')" class="bg-transparent hover:bg-[#F5FFF8] active:scale-[0.98] text-[#202923] border border-[#202923] font-medium py-2.5 px-4 rounded-full transition-all text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer">
+                            <button id="result-copy-img-btn" onclick="shareResultAsImage('copy')" class="bg-transparent hover:bg-[#F5FFF8] active:scale-[0.98] text-[#202923] border border-[#202923] font-medium py-2.5 px-4 rounded-full transition-all text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer" title="Copiar imagem para colar diretamente no WhatsApp com Ctrl+V">
+                                <span>📋</span>
+                                <span id="result-copy-img-label">Copiar Imagem</span>
+                            </button>
+
+                            <button id="result-download-img-btn" onclick="shareResultAsImage('download')" class="bg-transparent hover:bg-[#F5FFF8] active:scale-[0.98] text-[#202923] border border-[#D6EEDD] hover:border-[#202923] font-medium py-2.5 px-4 rounded-full transition-all text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer">
                                 <span>↓</span>
                                 <span id="result-download-img-label">Baixar Imagem</span>
                             </button>
@@ -519,6 +524,7 @@
                 vote: "voto",
                 votes: "votos",
                 shareImageBtn: "Compartilhar Imagem",
+                copyImageBtn: "Copiar Imagem",
                 downloadImageBtn: "Baixar Imagem",
                 generatingImage: "Gerando card...",
                 shareHint: "Gera um card em imagem (1080x1350) pronto para o WhatsApp, Instagram Stories e Feed",
@@ -546,6 +552,7 @@
                 vote: "vote",
                 votes: "votes",
                 shareImageBtn: "Share Image",
+                copyImageBtn: "Copy Image",
                 downloadImageBtn: "Download Image",
                 generatingImage: "Generating card...",
                 shareHint: "Generates an image card (1080x1350) ready for WhatsApp, Instagram Stories, and Feed",
@@ -613,17 +620,37 @@
             return curY + lineHeight;
         }
 
-        function loadImage(src) {
+        async function loadImage(src) {
+            try {
+                const res = await fetch(src);
+                if (res.ok) {
+                    const blob = await res.blob();
+                    const objectUrl = URL.createObjectURL(blob);
+                    return await new Promise((resolve) => {
+                        const img = new Image();
+                        img.onload = () => resolve(img);
+                        img.onerror = () => {
+                            URL.revokeObjectURL(objectUrl);
+                            resolve(null);
+                        };
+                        img.src = objectUrl;
+                    });
+                }
+            } catch (err) {
+                console.warn('Blob fetch failed in quiz.html', err);
+            }
+
+            try {
+                const domImg = document.getElementById('result-img');
+                if (domImg && domImg.complete && domImg.naturalWidth > 0) {
+                    return domImg;
+                }
+            } catch {}
+
             return new Promise((resolve) => {
                 const img = new Image();
-                img.crossOrigin = 'anonymous';
                 img.onload = () => resolve(img);
-                img.onerror = () => {
-                    const fallbackImg = new Image();
-                    fallbackImg.onload = () => resolve(fallbackImg);
-                    fallbackImg.onerror = () => resolve(null);
-                    fallbackImg.src = src;
-                };
+                img.onerror = () => resolve(null);
                 img.src = src;
             });
         }
@@ -893,6 +920,39 @@
                     return;
                 }
 
+                if (mode === 'copy') {
+                    let copied = false;
+                    if (navigator.clipboard && window.ClipboardItem) {
+                        try {
+                            await navigator.clipboard.write([
+                                new ClipboardItem({ 'image/png': blob })
+                            ]);
+                            copied = true;
+                        } catch (e) {
+                            console.warn('Clipboard write failed in quiz.html', e);
+                        }
+                    }
+
+                    if (copied) {
+                        showShareToast(currentLang === 'pt'
+                            ? '✓ Imagem copiada! Abra a conversa no WhatsApp e cole com Ctrl+V (ou Colar).'
+                            : '✓ Image copied! Open WhatsApp chat and paste with Ctrl+V (or Paste).');
+                    } else {
+                        triggerDownload();
+                        showShareToast(currentLang === 'pt'
+                            ? 'Imagem baixada no seu celular! Anexe o arquivo baixado no WhatsApp.'
+                            : 'Image downloaded to your device! Attach the downloaded file in WhatsApp.');
+                    }
+                    return;
+                }
+
+                // mode === 'share'
+                if (navigator.clipboard && window.ClipboardItem) {
+                    navigator.clipboard.write([
+                        new ClipboardItem({ 'image/png': blob })
+                    ]).catch(() => {});
+                }
+
                 const shareTitle = currentLang === 'pt'
                     ? `Quiz de Jornalismo Moderno: Meu perfil é ${winProf.title}`
                     : `Modern Journalism Quiz: My role is ${winProf.title}`;
@@ -909,24 +969,9 @@
                     showShareToast(currentLang === 'pt' ? 'Card compartilhado com sucesso!' : 'Card shared successfully!');
                 } else {
                     triggerDownload();
-                    try {
-                        if (navigator.clipboard && window.ClipboardItem) {
-                            await navigator.clipboard.write([
-                                new ClipboardItem({ 'image/png': blob })
-                            ]);
-                            showShareToast(currentLang === 'pt'
-                                ? 'Imagem baixada e copiada! Pronta para colar no WhatsApp ou postar no Instagram.'
-                                : 'Image downloaded and copied! Ready to paste into WhatsApp or share on Instagram.');
-                        } else {
-                            showShareToast(currentLang === 'pt'
-                                ? 'Imagem baixada no seu celular! Pronta para postar no WhatsApp ou Instagram.'
-                                : 'Image downloaded to your device! Ready to share on WhatsApp or Instagram.');
-                        }
-                    } catch {
-                        showShareToast(currentLang === 'pt'
-                            ? 'Imagem baixada no seu celular! Pronta para postar no WhatsApp ou Instagram.'
-                            : 'Image downloaded to your device! Ready to share on WhatsApp or Instagram.');
-                    }
+                    showShareToast(currentLang === 'pt'
+                        ? '✓ Imagem copiada e baixada! Pronta para colar no WhatsApp ou postar no Instagram.'
+                        : '✓ Image copied and downloaded! Ready to paste into WhatsApp or share on Instagram.');
                 }
             } catch (err) {
                 if (err?.name !== 'AbortError') {
@@ -984,6 +1029,8 @@
             document.getElementById('result-kicker').innerText = s.diagnostic;
             document.getElementById('distribution-title').innerText = s.distributionTitle;
             document.getElementById('result-share-img-label').innerText = s.shareImageBtn;
+            const copyLabel = document.getElementById('result-copy-img-label');
+            if (copyLabel) copyLabel.innerText = s.copyImageBtn;
             document.getElementById('result-download-img-label').innerText = s.downloadImageBtn;
             document.getElementById('result-retake-label').innerText = s.retake;
             document.getElementById('result-share-hint').innerText = s.shareHint;
