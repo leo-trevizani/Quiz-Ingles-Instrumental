@@ -535,7 +535,7 @@ async function createResultCardBlob(
   return new Promise((resolve) => {
     const canvas = document.createElement('canvas');
     canvas.width = 1080;
-    canvas.height = 1680;
+    canvas.height = 1350;
     const ctx = canvas.getContext('2d');
     if (!ctx) {
       resolve(null);
@@ -544,62 +544,62 @@ async function createResultCardBlob(
 
     // 1. Overall Background
     ctx.fillStyle = '#F5FFF8';
-    ctx.fillRect(0, 0, 1080, 1680);
+    ctx.fillRect(0, 0, 1080, 1350);
 
     // Subtle corner background accents
     ctx.fillStyle = 'rgba(52, 168, 83, 0.05)';
     ctx.beginPath();
-    ctx.arc(100, 100, 160, 0, Math.PI * 2);
+    ctx.arc(80, 80, 140, 0, Math.PI * 2);
     ctx.fill();
     ctx.beginPath();
-    ctx.arc(980, 1560, 200, 0, Math.PI * 2);
+    ctx.arc(1000, 1270, 160, 0, Math.PI * 2);
     ctx.fill();
 
-    // 2. White Card Container
-    drawRoundRect(ctx, 44, 44, 992, 1592, 36);
+    // 2. White Card Container (Outer Bezel)
+    drawRoundRect(ctx, 36, 32, 1008, 1286, 32);
     ctx.fillStyle = '#FFFFFF';
     ctx.fill();
     ctx.strokeStyle = '#D6EEDD';
-    ctx.lineWidth = 3;
+    ctx.lineWidth = 2.5;
     ctx.stroke();
 
     // 3. Header Top Pill
     const pillText = lang === 'pt' ? 'TESTE DE PERSONALIDADE' : 'PERSONALITY QUIZ';
-    ctx.font = 'bold 15px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.font = 'bold 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
     const pillTextWidth = ctx.measureText(pillText).width;
-    const pillWidth = pillTextWidth + 48;
-    drawRoundRect(ctx, 84, 80, pillWidth, 36, 18);
+    const pillWidth = pillTextWidth + 42;
+    drawRoundRect(ctx, 72, 64, pillWidth, 32, 16);
     ctx.fillStyle = '#202923';
     ctx.fill();
 
     // Green dot in pill
     ctx.beginPath();
-    ctx.arc(104, 98, 5, 0, Math.PI * 2);
+    ctx.arc(89, 80, 4.5, 0, Math.PI * 2);
     ctx.fillStyle = '#34A853';
     ctx.fill();
 
     ctx.fillStyle = '#FFFFFF';
-    ctx.fillText(pillText, 120, 103);
+    ctx.fillText(pillText, 102, 85);
 
     // 4. Header Titles
     ctx.fillStyle = '#0D0D0D';
-    ctx.font = 'bold 30px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.fillText(lang === 'pt' ? 'Inglês Instrumental' : 'Instrumental English', 84, 156);
+    ctx.font = 'bold 26px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.fillText(lang === 'pt' ? 'Inglês Instrumental' : 'Instrumental English', 72, 124);
 
     ctx.fillStyle = '#808080';
-    ctx.font = '500 17px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.fillText(lang === 'pt' ? 'Jornalismo & Bastidores • Prof. Leo Trevizani' : 'Journalism & Beat • Prof. Leo Trevizani', 84, 188);
+    ctx.font = '500 15px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.fillText(lang === 'pt' ? 'Jornalismo & Bastidores • Prof. Leo Trevizani' : 'Journalism & Beat • Prof. Leo Trevizani', 72, 150);
 
     // Separator line
     ctx.strokeStyle = '#EAF5EE';
     ctx.lineWidth = 1.5;
     ctx.beginPath();
-    ctx.moveTo(84, 212);
-    ctx.lineTo(996, 212);
+    ctx.moveTo(72, 168);
+    ctx.lineTo(1008, 168);
     ctx.stroke();
 
     // 5. Eyebrow: Diagnóstico Editorial
-    drawRoundRect(ctx, 84, 234, 220, 30, 15);
+    drawRoundRect(ctx, 72, 186, 204, 26, 13);
     ctx.fillStyle = '#F5FFF8';
     ctx.fill();
     ctx.strokeStyle = '#D6EEDD';
@@ -607,27 +607,27 @@ async function createResultCardBlob(
     ctx.stroke();
 
     ctx.fillStyle = '#202923';
-    ctx.font = 'bold 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.fillText(lang === 'pt' ? '✓ DIAGNÓSTICO EDITORIAL' : '✓ EDITORIAL DIAGNOSIS', 98, 254);
+    ctx.font = 'bold 11px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.fillText(lang === 'pt' ? '✓ DIAGNÓSTICO EDITORIAL' : '✓ EDITORIAL DIAGNOSIS', 85, 203);
 
-    // 6. Dominant Title & Subtitle (Image & Text pairing)
+    // 6. Dominant Title & Subtitle
     ctx.fillStyle = '#0D0D0D';
-    ctx.font = 'bold 40px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.fillText(winningProfileData.title, 84, 310);
+    ctx.font = 'bold 34px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.fillText(winningProfileData.title, 72, 248);
 
     ctx.fillStyle = '#808080';
-    ctx.font = '600 16px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.fillText(winningProfileData.subtitle.toUpperCase(), 84, 340);
+    ctx.font = '600 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.fillText(winningProfileData.subtitle.toUpperCase(), 72, 274);
 
-    // 7. Profile 3D Illustration Image
-    const imgX = 84;
-    const imgY = 364;
-    const imgW = 912;
-    const imgH = 460;
+    // 7. Profile 3D Illustration Image (936 x 370)
+    const imgX = 72;
+    const imgY = 292;
+    const imgW = 936;
+    const imgH = 370;
 
     if (profileImg) {
       ctx.save();
-      drawRoundRect(ctx, imgX, imgY, imgW, imgH, 20);
+      drawRoundRect(ctx, imgX, imgY, imgW, imgH, 18);
       ctx.clip();
 
       const imgAspect = profileImg.width / profileImg.height;
@@ -646,13 +646,12 @@ async function createResultCardBlob(
       ctx.restore();
 
       // Border outline
-      drawRoundRect(ctx, imgX, imgY, imgW, imgH, 20);
+      drawRoundRect(ctx, imgX, imgY, imgW, imgH, 18);
       ctx.strokeStyle = '#D6EEDD';
       ctx.lineWidth = 2;
       ctx.stroke();
     } else {
-      // Fallback placeholder box if image pending
-      drawRoundRect(ctx, imgX, imgY, imgW, imgH, 20);
+      drawRoundRect(ctx, imgX, imgY, imgW, imgH, 18);
       ctx.fillStyle = '#F5FFF8';
       ctx.fill();
       ctx.strokeStyle = '#D6EEDD';
@@ -661,9 +660,9 @@ async function createResultCardBlob(
     }
 
     // 8. Quote Statement Box
-    const quoteY = 850;
-    const quoteH = 135;
-    drawRoundRect(ctx, 84, quoteY, 912, quoteH, 16);
+    const quoteY = 680;
+    const quoteH = 104;
+    drawRoundRect(ctx, 72, quoteY, 936, quoteH, 14);
     ctx.fillStyle = '#F5FFF8';
     ctx.fill();
     ctx.strokeStyle = '#D6EEDD';
@@ -671,46 +670,46 @@ async function createResultCardBlob(
     ctx.stroke();
 
     // Left green accent border
-    drawRoundRect(ctx, 84, quoteY, 8, quoteH, 4);
+    drawRoundRect(ctx, 72, quoteY, 7, quoteH, 3.5);
     ctx.fillStyle = '#34A853';
     ctx.fill();
 
     // Quote text
     ctx.fillStyle = '#282D29';
-    ctx.font = 'italic 20px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    wrapText(ctx, `"${winningProfileData.quote}"`, 114, quoteY + 45, 840, 30);
+    ctx.font = 'italic 17px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    wrapText(ctx, `"${winningProfileData.quote}"`, 98, quoteY + 36, 880, 25);
 
     // 9. Highlighted Competencies
     ctx.fillStyle = '#808080';
-    ctx.font = 'bold 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.fillText(lang === 'pt' ? 'COMPETÊNCIAS EM DESTAQUE:' : 'HIGHLIGHTED COMPETENCIES:', 84, 1018);
+    ctx.font = 'bold 11.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.fillText(lang === 'pt' ? 'COMPETÊNCIAS EM DESTAQUE:' : 'HIGHLIGHTED COMPETENCIES:', 72, 810);
 
-    let skillX = 84;
-    const skillY = 1034;
-    ctx.font = '600 15px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    let skillX = 72;
+    const skillY = 824;
+    ctx.font = '600 13.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
     winningProfileData.skills.forEach((skill) => {
       const sw = ctx.measureText(skill).width;
-      const pillW = sw + 28;
-      if (skillX + pillW > 996) return;
-      drawRoundRect(ctx, skillX, skillY, pillW, 32, 16);
+      const pillW = sw + 24;
+      if (skillX + pillW > 1008) return;
+      drawRoundRect(ctx, skillX, skillY, pillW, 28, 14);
       ctx.fillStyle = '#F5FFF8';
       ctx.fill();
       ctx.strokeStyle = '#D6EEDD';
-      ctx.lineWidth = 1.5;
+      ctx.lineWidth = 1.2;
       ctx.stroke();
 
       ctx.fillStyle = '#202923';
-      ctx.fillText(skill, skillX + 14, skillY + 21);
-      skillX += pillW + 10;
+      ctx.fillText(skill, skillX + 12, skillY + 19);
+      skillX += pillW + 8;
     });
 
     // 10. Affinity Breakdown Section
     ctx.fillStyle = '#808080';
-    ctx.font = 'bold 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.fillText(lang === 'pt' ? 'DISTRIBUIÇÃO DAS SUAS AFINIDADES:' : 'AFFINITY DISTRIBUTION:', 84, 1098);
+    ctx.font = 'bold 11.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.fillText(lang === 'pt' ? 'DISTRIBUIÇÃO DAS SUAS AFINIDADES:' : 'AFFINITY DISTRIBUTION:', 72, 880);
 
     const profileKeys = Object.keys(profiles) as ProfileKey[];
-    let barStartY = 1128;
+    let barStartY = 904;
     profileKeys.forEach((key) => {
       const prof = profiles[key];
       const isWinner = key === scoreSummary.winningProfile;
@@ -720,54 +719,54 @@ async function createResultCardBlob(
 
       // Title
       ctx.fillStyle = isWinner ? '#34A853' : '#282D29';
-      ctx.font = isWinner ? 'bold 19px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' : '500 18px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-      ctx.fillText(prof.title, 84, barStartY);
+      ctx.font = isWinner ? 'bold 16px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' : '500 15px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      ctx.fillText(prof.title, 72, barStartY);
 
       // Score
       const scoreText = `${count} ${voteLabel} (${percent}%)`;
       ctx.fillStyle = isWinner ? '#34A853' : '#808080';
-      ctx.font = isWinner ? 'bold 17px monospace' : '500 17px monospace';
+      ctx.font = isWinner ? 'bold 14px monospace' : '500 14px monospace';
       const scoreWidth = ctx.measureText(scoreText).width;
-      ctx.fillText(scoreText, 996 - scoreWidth, barStartY);
+      ctx.fillText(scoreText, 1008 - scoreWidth, barStartY);
 
       // Track
-      drawRoundRect(ctx, 84, barStartY + 10, 912, 11, 5);
+      drawRoundRect(ctx, 72, barStartY + 8, 936, 9, 4.5);
       ctx.fillStyle = '#EAF5EE';
       ctx.fill();
 
       // Bar
-      const barWidth = Math.max(10, (percent / 100) * 912);
-      drawRoundRect(ctx, 84, barStartY + 10, barWidth, 11, 5);
+      const barWidth = Math.max(9, (percent / 100) * 936);
+      drawRoundRect(ctx, 72, barStartY + 8, barWidth, 9, 4.5);
       ctx.fillStyle = isWinner ? '#34A853' : '#808080';
       ctx.fill();
 
-      barStartY += 66;
+      barStartY += 52;
     });
 
     // 11. Card Footer
     ctx.strokeStyle = '#EAF5EE';
     ctx.lineWidth = 1.5;
     ctx.beginPath();
-    ctx.moveTo(84, 1426);
-    ctx.lineTo(996, 1426);
+    ctx.moveTo(72, 1146);
+    ctx.lineTo(1008, 1146);
     ctx.stroke();
 
     ctx.fillStyle = '#0D0D0D';
-    ctx.font = 'bold 20px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.font = 'bold 18px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText(
       lang === 'pt' ? 'Quem é você na fila do pão do Jornalismo Global?' : 'Who Are You in the Global Journalism Pecking Order?',
       540,
-      1466
+      1182
     );
 
     ctx.fillStyle = '#808080';
-    ctx.font = '500 16px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.fillText('© 2026 Leo Trevizani • Nenhum estagiário foi explorado na criação deste quiz.', 540, 1500);
+    ctx.font = '500 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.fillText('© 2026 Leo Trevizani • Nenhum estagiário foi explorado na criação deste quiz.', 540, 1212);
     ctx.fillText(
       lang === 'pt' ? 'Inglês Instrumental aplicado ao Jornalismo' : 'Instrumental English applied to Journalism',
       540,
-      1528
+      1236
     );
 
     ctx.textAlign = 'start'; // reset
@@ -1041,8 +1040,8 @@ export default function App() {
     downloadImageBtn: lang === 'pt' ? "Baixar Imagem" : "Download Image",
     generatingImage: lang === 'pt' ? "Gerando card..." : "Generating card...",
     shareHint: lang === 'pt'
-      ? "Gera um card em imagem pronto para o WhatsApp, Instagram Stories e Feed"
-      : "Generates an image card ready for WhatsApp, Instagram Stories, and Feed",
+      ? "Gera um card em imagem (1080x1350) pronto para o WhatsApp, Instagram Stories e Feed"
+      : "Generates an image card (1080x1350) ready for WhatsApp, Instagram Stories, and Feed",
     retakeBtn: lang === 'pt' ? "Refazer Quiz" : "Retake Quiz",
     footerCourse: lang === 'pt'
       ? "Inglês Instrumental aplicado ao Jornalismo"
