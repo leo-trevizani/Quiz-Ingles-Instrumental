@@ -35,11 +35,26 @@ interface Question {
   options: Option[];
 }
 
+const getAssetUrl = (path: string): string => {
+  const base = import.meta.env.BASE_URL || './';
+  const cleanBase = base.endsWith('/') ? base : `${base}/`;
+  const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+  return `${cleanBase}${cleanPath}`;
+};
+
+export const PROFILE_IMAGES: Record<ProfileKey, string> = {
+  correspondente: getAssetUrl('assets/aistudio/Foreign_Correspondent_4e2b453c.jpeg'),
+  checador: getAssetUrl('assets/aistudio/Fact_Checker_f586ccc1.jpeg'),
+  bigdata: getAssetUrl('assets/aistudio/Big_Data_Analyst_32e6d8b9.jpeg'),
+  b2b: getAssetUrl('assets/aistudio/Corporate_PR_d25fa1f9.jpeg')
+};
+
 interface ProfileInfo {
   title: string;
   subtitle: string;
   desc: string;
   icon: React.ElementType;
+  image: string;
   tagText: string;
   quote: string;
   skills: string[];
@@ -285,6 +300,7 @@ const PROFILES_DATA: Record<Language, Record<ProfileKey, ProfileInfo>> = {
       subtitle: "Cobertura Global e Reportagem Cultural",
       desc: "Você é movido pela apuração de campo, pela cultura e pelos fatos em tempo real. Domina a técnica da pirâmide invertida e sabe que no jornalismo direto 'menos é mais'. Falsos cognatos e armadilhas de linguagem não enganam você, pois compreende a comunicação como uma ferramenta viva de conexão cultural. Seu passaporte está em dia?",
       icon: Globe,
+      image: PROFILE_IMAGES.correspondente,
       tagText: "Mundo e Sociedade",
       quote: "“Mostre os fatos em vez de usar adjetivos. Na pirâmide invertida, quem enrola perde o leitor.”",
       skills: ["Domínio da Pirâmide Invertida", "Comunicação Internacional Direta", "Enquadramento de Interesse Humano", "Precisão sem Falsos Cognatos"]
@@ -294,6 +310,7 @@ const PROFILES_DATA: Record<Language, Record<ProfileKey, ProfileInfo>> = {
       subtitle: "Especialista em Verificação e Ética Jornalística",
       desc: "Nada escapa do seu olhar crítico. Você segue a regra de ouro da verificação: se alguém diz que chove e outro diz que faz sol, o papel do jornalista é abrir a janela e checar. Você combate a falsa equivalência e a falsa neutralidade com firmeza. Sabe lidar com apurações sigilosas e desmascara manobras de comunicação institucional com facilidade.",
       icon: ShieldCheck,
+      image: PROFILE_IMAGES.checador,
       tagText: "Ética e Verificação",
       quote: "“Se um lado afirma que chove e o outro diz que faz sol, abra a janela antes de publicar.”",
       skills: ["Apuração Rigorosa de Fontes", "Combate à Falsa Equivalência", "Desmonte de Discursos Institucionais", "Dupla Checagem Factual"]
@@ -303,6 +320,7 @@ const PROFILES_DATA: Record<Language, Record<ProfileKey, ProfileInfo>> = {
       subtitle: "Investigação Quantitativa e Computacional",
       desc: "Para você, relatos podem ser tendenciosos, mas os números revelam a verdade quando bem tratados. Você não depende de comunicados prontos: extrai e cruza bases estatísticas completas. Suas planilhas, códigos de automação e infográficos encontram padrões onde a maioria só enxerga confusão. Informação estruturada é o seu maior trunfo.",
       icon: Database,
+      image: PROFILE_IMAGES.bigdata,
       tagText: "Estatística e Análise",
       quote: "“Em Deus nós confiamos. Para todos os outros casos, tragam dados e planilhas consistentes.”",
       skills: ["Extração Automatizada de Dados", "Infografia e Visualização", "Mapeamento de Responsabilidade", "Evidência Empírica"]
@@ -312,6 +330,7 @@ const PROFILES_DATA: Record<Language, Record<ProfileKey, ProfileInfo>> = {
       subtitle: "Inteligência de Mercado e Análise de Negócios",
       desc: "Você compreende perfeitamente o tabuleiro dos grandes negócios. É especialista em traduzir o jargão corporativo e os eufemismos de relações públicas em diagnósticos transparentes para investidores e tomadores de decisão. Sabe analisar custos, prever impactos econômicos e dialogar com clareza com o mercado.",
       icon: Briefcase,
+      image: PROFILE_IMAGES.b2b,
       tagText: "Estratégia e Mercado",
       quote: "“Eufemismo empresarial é uma oportunidade para quem sabe decifrar as entrelinhas do mercado.”",
       skills: ["Decodificação de Jargões", "Análise de Consequências Econômicas", "Comunicação com Investidores", "Diagnóstico de Tendências"]
@@ -323,6 +342,7 @@ const PROFILES_DATA: Record<Language, Record<ProfileKey, ProfileInfo>> = {
       subtitle: "Global Beat & Cultural Reporting",
       desc: "You thrive on field reporting, cultural immersion, and real-time storytelling. You command the inverted pyramid and understand that direct journalism values clarity over fluff. False cognates never mislead you, because you treat language as a living medium of global connection. Is your passport ready?",
       icon: Globe,
+      image: PROFILE_IMAGES.correspondente,
       tagText: "World & Culture",
       quote: "“Show, don't tell. In the inverted pyramid, burying the lead loses the audience.”",
       skills: ["Inverted Pyramid Mastery", "Global Communication", "Human Interest Framing", "Semantic Accuracy"]
@@ -332,6 +352,7 @@ const PROFILES_DATA: Record<Language, Record<ProfileKey, ProfileInfo>> = {
       subtitle: "Verification & Media Ethics Specialist",
       desc: "Nothing slips past your scrutiny. You live by the golden rule of investigative reporting: if someone says it is raining and another says it is dry, your duty is to open the window and verify. You challenge false balance and performative neutrality head-on, handle confidential sourcing with rigor, and dismantle corporate spin.",
       icon: ShieldCheck,
+      image: PROFILE_IMAGES.checador,
       tagText: "Truth & Ethics",
       quote: "“If one side says it is raining and the other says it is sunny, open the window before publishing.”",
       skills: ["Rigorous Sourcing Protocols", "Challenging False Balance", "Debunking PR Spin", "Double-Check Verification"]
@@ -341,6 +362,7 @@ const PROFILES_DATA: Record<Language, Record<ProfileKey, ProfileInfo>> = {
       subtitle: "Computational & Quantitative Investigation",
       desc: "To you, opinions can deceive, but clean numbers reveal reality. You do not wait for official handouts: you scrape, sanitize, and correlate vast datasets. Your spreadsheets, automated scripts, and interactive graphics locate actionable patterns where others see only noise. Structured data is your greatest edge.",
       icon: Database,
+      image: PROFILE_IMAGES.bigdata,
       tagText: "Algorithms & Analytics",
       quote: "“In God we trust. All others must bring clean datasets and verified spreadsheets.”",
       skills: ["Automated Data Scraping", "Interactive Data Visualization", "Attribution of Responsibility", "Empirical Evidence"]
@@ -350,6 +372,7 @@ const PROFILES_DATA: Record<Language, Record<ProfileKey, ProfileInfo>> = {
       subtitle: "Market Intelligence & Business Analysis",
       desc: "You master the chess game of global commerce. You excel at translating corporate speak and public relations euphemisms into transparent market intelligence for decision-makers. You quantify fiscal consequences, anticipate regulatory shifts, and articulate clear insights for executive stakeholders.",
       icon: Briefcase,
+      image: PROFILE_IMAGES.b2b,
       tagText: "Strategy & Markets",
       quote: "“Corporate euphemisms are invitations for those who know how to read between the lines.”",
       skills: ["Corporate Speak Decoding", "Economic Consequences Framing", "Stakeholder Briefings", "Market Trend Forecasting"]
@@ -485,16 +508,34 @@ function wrapText(
   return curY + lineHeight;
 }
 
-function createResultCardBlob(
+function loadImage(src: string): Promise<HTMLImageElement | null> {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => resolve(img);
+    img.onerror = () => {
+      const fallbackImg = new Image();
+      fallbackImg.onload = () => resolve(fallbackImg);
+      fallbackImg.onerror = () => resolve(null);
+      fallbackImg.src = src;
+    };
+    img.src = src;
+  });
+}
+
+async function createResultCardBlob(
   winningProfileData: ProfileInfo,
   scoreSummary: { counts: Record<ProfileKey, number>; percentages: Record<ProfileKey, number>; winningProfile: ProfileKey },
   profiles: Record<ProfileKey, ProfileInfo>,
   lang: Language
 ): Promise<Blob | null> {
+  // Preload profile image
+  const profileImg = await loadImage(winningProfileData.image);
+
   return new Promise((resolve) => {
     const canvas = document.createElement('canvas');
     canvas.width = 1080;
-    canvas.height = 1440;
+    canvas.height = 1680;
     const ctx = canvas.getContext('2d');
     if (!ctx) {
       resolve(null);
@@ -503,7 +544,7 @@ function createResultCardBlob(
 
     // 1. Overall Background
     ctx.fillStyle = '#F5FFF8';
-    ctx.fillRect(0, 0, 1080, 1440);
+    ctx.fillRect(0, 0, 1080, 1680);
 
     // Subtle corner background accents
     ctx.fillStyle = 'rgba(52, 168, 83, 0.05)';
@@ -511,11 +552,11 @@ function createResultCardBlob(
     ctx.arc(100, 100, 160, 0, Math.PI * 2);
     ctx.fill();
     ctx.beginPath();
-    ctx.arc(980, 1340, 200, 0, Math.PI * 2);
+    ctx.arc(980, 1560, 200, 0, Math.PI * 2);
     ctx.fill();
 
     // 2. White Card Container
-    drawRoundRect(ctx, 44, 44, 992, 1352, 36);
+    drawRoundRect(ctx, 44, 44, 992, 1592, 36);
     ctx.fillStyle = '#FFFFFF';
     ctx.fill();
     ctx.strokeStyle = '#D6EEDD';
@@ -527,38 +568,38 @@ function createResultCardBlob(
     ctx.font = 'bold 15px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
     const pillTextWidth = ctx.measureText(pillText).width;
     const pillWidth = pillTextWidth + 48;
-    drawRoundRect(ctx, 84, 84, pillWidth, 38, 19);
+    drawRoundRect(ctx, 84, 80, pillWidth, 36, 18);
     ctx.fillStyle = '#202923';
     ctx.fill();
 
     // Green dot in pill
     ctx.beginPath();
-    ctx.arc(104, 103, 5, 0, Math.PI * 2);
+    ctx.arc(104, 98, 5, 0, Math.PI * 2);
     ctx.fillStyle = '#34A853';
     ctx.fill();
 
     ctx.fillStyle = '#FFFFFF';
-    ctx.fillText(pillText, 120, 108);
+    ctx.fillText(pillText, 120, 103);
 
     // 4. Header Titles
     ctx.fillStyle = '#0D0D0D';
     ctx.font = 'bold 30px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.fillText(lang === 'pt' ? 'Inglês Instrumental' : 'Instrumental English', 84, 164);
+    ctx.fillText(lang === 'pt' ? 'Inglês Instrumental' : 'Instrumental English', 84, 156);
 
     ctx.fillStyle = '#808080';
-    ctx.font = '500 18px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.fillText(lang === 'pt' ? 'Jornalismo & Bastidores • Prof. Leo Trevizani' : 'Journalism & Beat • Prof. Leo Trevizani', 84, 196);
+    ctx.font = '500 17px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.fillText(lang === 'pt' ? 'Jornalismo & Bastidores • Prof. Leo Trevizani' : 'Journalism & Beat • Prof. Leo Trevizani', 84, 188);
 
     // Separator line
     ctx.strokeStyle = '#EAF5EE';
     ctx.lineWidth = 1.5;
     ctx.beginPath();
-    ctx.moveTo(84, 222);
-    ctx.lineTo(996, 222);
+    ctx.moveTo(84, 212);
+    ctx.lineTo(996, 212);
     ctx.stroke();
 
     // 5. Eyebrow: Diagnóstico Editorial
-    drawRoundRect(ctx, 84, 246, 220, 32, 16);
+    drawRoundRect(ctx, 84, 234, 220, 30, 15);
     ctx.fillStyle = '#F5FFF8';
     ctx.fill();
     ctx.strokeStyle = '#D6EEDD';
@@ -567,15 +608,62 @@ function createResultCardBlob(
 
     ctx.fillStyle = '#202923';
     ctx.font = 'bold 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.fillText(lang === 'pt' ? '✓ DIAGNÓSTICO EDITORIAL' : '✓ EDITORIAL DIAGNOSIS', 98, 267);
+    ctx.fillText(lang === 'pt' ? '✓ DIAGNÓSTICO EDITORIAL' : '✓ EDITORIAL DIAGNOSIS', 98, 254);
 
-    // 6. Dominant Title
+    // 6. Dominant Title & Subtitle (Image & Text pairing)
     ctx.fillStyle = '#0D0D0D';
-    ctx.font = 'bold 44px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.fillText(winningProfileData.title, 84, 324);
+    ctx.font = 'bold 40px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.fillText(winningProfileData.title, 84, 310);
 
-    // 7. Quote Statement Box
-    drawRoundRect(ctx, 84, 350, 912, 160, 16);
+    ctx.fillStyle = '#808080';
+    ctx.font = '600 16px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.fillText(winningProfileData.subtitle.toUpperCase(), 84, 340);
+
+    // 7. Profile 3D Illustration Image
+    const imgX = 84;
+    const imgY = 364;
+    const imgW = 912;
+    const imgH = 460;
+
+    if (profileImg) {
+      ctx.save();
+      drawRoundRect(ctx, imgX, imgY, imgW, imgH, 20);
+      ctx.clip();
+
+      const imgAspect = profileImg.width / profileImg.height;
+      const targetAspect = imgW / imgH;
+      let sx = 0, sy = 0, sw = profileImg.width, sh = profileImg.height;
+
+      if (imgAspect > targetAspect) {
+        sw = profileImg.height * targetAspect;
+        sx = (profileImg.width - sw) / 2;
+      } else {
+        sh = profileImg.width / targetAspect;
+        sy = (profileImg.height - sh) / 2;
+      }
+
+      ctx.drawImage(profileImg, sx, sy, sw, sh, imgX, imgY, imgW, imgH);
+      ctx.restore();
+
+      // Border outline
+      drawRoundRect(ctx, imgX, imgY, imgW, imgH, 20);
+      ctx.strokeStyle = '#D6EEDD';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    } else {
+      // Fallback placeholder box if image pending
+      drawRoundRect(ctx, imgX, imgY, imgW, imgH, 20);
+      ctx.fillStyle = '#F5FFF8';
+      ctx.fill();
+      ctx.strokeStyle = '#D6EEDD';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+
+    // 8. Quote Statement Box
+    const quoteY = 850;
+    const quoteH = 135;
+    drawRoundRect(ctx, 84, quoteY, 912, quoteH, 16);
     ctx.fillStyle = '#F5FFF8';
     ctx.fill();
     ctx.strokeStyle = '#D6EEDD';
@@ -583,28 +671,28 @@ function createResultCardBlob(
     ctx.stroke();
 
     // Left green accent border
-    drawRoundRect(ctx, 84, 350, 8, 160, 4);
+    drawRoundRect(ctx, 84, quoteY, 8, quoteH, 4);
     ctx.fillStyle = '#34A853';
     ctx.fill();
 
     // Quote text
     ctx.fillStyle = '#282D29';
-    ctx.font = 'italic 21px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    wrapText(ctx, `"${winningProfileData.quote}"`, 114, 395, 840, 32);
+    ctx.font = 'italic 20px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    wrapText(ctx, `"${winningProfileData.quote}"`, 114, quoteY + 45, 840, 30);
 
-    // 8. Highlighted Competencies
+    // 9. Highlighted Competencies
     ctx.fillStyle = '#808080';
     ctx.font = 'bold 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.fillText(lang === 'pt' ? 'COMPETÊNCIAS EM DESTAQUE:' : 'HIGHLIGHTED COMPETENCIES:', 84, 550);
+    ctx.fillText(lang === 'pt' ? 'COMPETÊNCIAS EM DESTAQUE:' : 'HIGHLIGHTED COMPETENCIES:', 84, 1018);
 
     let skillX = 84;
-    const skillY = 566;
-    ctx.font = '600 16px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    const skillY = 1034;
+    ctx.font = '600 15px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
     winningProfileData.skills.forEach((skill) => {
       const sw = ctx.measureText(skill).width;
       const pillW = sw + 28;
       if (skillX + pillW > 996) return;
-      drawRoundRect(ctx, skillX, skillY, pillW, 34, 17);
+      drawRoundRect(ctx, skillX, skillY, pillW, 32, 16);
       ctx.fillStyle = '#F5FFF8';
       ctx.fill();
       ctx.strokeStyle = '#D6EEDD';
@@ -612,17 +700,17 @@ function createResultCardBlob(
       ctx.stroke();
 
       ctx.fillStyle = '#202923';
-      ctx.fillText(skill, skillX + 14, skillY + 23);
+      ctx.fillText(skill, skillX + 14, skillY + 21);
       skillX += pillW + 10;
     });
 
-    // 9. Affinity Breakdown Section
+    // 10. Affinity Breakdown Section
     ctx.fillStyle = '#808080';
     ctx.font = 'bold 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.fillText(lang === 'pt' ? 'DISTRIBUIÇÃO DAS SUAS AFINIDADES:' : 'AFFINITY DISTRIBUTION:', 84, 650);
+    ctx.fillText(lang === 'pt' ? 'DISTRIBUIÇÃO DAS SUAS AFINIDADES:' : 'AFFINITY DISTRIBUTION:', 84, 1098);
 
     const profileKeys = Object.keys(profiles) as ProfileKey[];
-    let barStartY = 680;
+    let barStartY = 1128;
     profileKeys.forEach((key) => {
       const prof = profiles[key];
       const isWinner = key === scoreSummary.winningProfile;
@@ -632,36 +720,36 @@ function createResultCardBlob(
 
       // Title
       ctx.fillStyle = isWinner ? '#34A853' : '#282D29';
-      ctx.font = isWinner ? 'bold 20px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' : '500 19px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      ctx.font = isWinner ? 'bold 19px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' : '500 18px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
       ctx.fillText(prof.title, 84, barStartY);
 
       // Score
       const scoreText = `${count} ${voteLabel} (${percent}%)`;
       ctx.fillStyle = isWinner ? '#34A853' : '#808080';
-      ctx.font = isWinner ? 'bold 18px monospace' : '500 18px monospace';
+      ctx.font = isWinner ? 'bold 17px monospace' : '500 17px monospace';
       const scoreWidth = ctx.measureText(scoreText).width;
       ctx.fillText(scoreText, 996 - scoreWidth, barStartY);
 
       // Track
-      drawRoundRect(ctx, 84, barStartY + 12, 912, 12, 6);
+      drawRoundRect(ctx, 84, barStartY + 10, 912, 11, 5);
       ctx.fillStyle = '#EAF5EE';
       ctx.fill();
 
       // Bar
-      const barWidth = Math.max(12, (percent / 100) * 912);
-      drawRoundRect(ctx, 84, barStartY + 12, barWidth, 12, 6);
+      const barWidth = Math.max(10, (percent / 100) * 912);
+      drawRoundRect(ctx, 84, barStartY + 10, barWidth, 11, 5);
       ctx.fillStyle = isWinner ? '#34A853' : '#808080';
       ctx.fill();
 
-      barStartY += 72;
+      barStartY += 66;
     });
 
-    // 10. Card Footer
+    // 11. Card Footer
     ctx.strokeStyle = '#EAF5EE';
     ctx.lineWidth = 1.5;
     ctx.beginPath();
-    ctx.moveTo(84, 1210);
-    ctx.lineTo(996, 1210);
+    ctx.moveTo(84, 1426);
+    ctx.lineTo(996, 1426);
     ctx.stroke();
 
     ctx.fillStyle = '#0D0D0D';
@@ -670,16 +758,16 @@ function createResultCardBlob(
     ctx.fillText(
       lang === 'pt' ? 'Quem é você na fila do pão do Jornalismo Global?' : 'Who Are You in the Global Journalism Pecking Order?',
       540,
-      1252
+      1466
     );
 
     ctx.fillStyle = '#808080';
     ctx.font = '500 16px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.fillText('© 2026 Leo Trevizani • Nenhum estagiário foi explorado na criação deste quiz.', 540, 1286);
+    ctx.fillText('© 2026 Leo Trevizani • Nenhum estagiário foi explorado na criação deste quiz.', 540, 1500);
     ctx.fillText(
       lang === 'pt' ? 'Inglês Instrumental aplicado ao Jornalismo' : 'Instrumental English applied to Journalism',
       540,
-      1314
+      1528
     );
 
     ctx.textAlign = 'start'; // reset
@@ -812,7 +900,6 @@ export default function App() {
   }, [userAnswers]);
 
   const winningProfileData = profiles[scoreSummary.winningProfile];
-  const WinnerIcon = winningProfileData.icon;
 
   const currentQ = questions[currentQuestionIndex] || questions[0];
   const currentOptionIndices = shuffledOptionsOrder[currentQuestionIndex] || currentQ.options.map((_, i) => i);
@@ -1213,11 +1300,19 @@ export default function App() {
                     <span>{t.diagnosticKicker}</span>
                   </div>
 
-                  <div className="flex items-center gap-3 pt-1">
-                    <div className="w-12 h-12 rounded-full bg-[#F5FFF8] border border-[#D6EEDD] flex items-center justify-center shrink-0 shadow-xs">
-                      <WinnerIcon className="w-6 h-6 text-[#34A853]" />
+                  <div className="space-y-3.5 pt-1">
+                    {/* Profile Character Image */}
+                    <div className="relative overflow-hidden rounded-2xl border border-[#D6EEDD] bg-[#F5FFF8] shadow-xs aspect-[16/9] w-full">
+                      <img
+                        src={winningProfileData.image}
+                        alt={winningProfileData.title}
+                        className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-[1.01]"
+                        loading="eager"
+                      />
                     </div>
-                    <div>
+
+                    {/* Profile Title & Subtitle */}
+                    <div className="space-y-1">
                       <h2 className="text-xl sm:text-3xl font-bold text-[#0D0D0D] tracking-tight text-balance">
                         {winningProfileData.title}
                       </h2>
