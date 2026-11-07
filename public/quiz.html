@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Quiz: Qual papel do Jornalismo Moderno é a sua cara?</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-dark-green: #202923;
+            --color-vibrant-green: #34A853;
+            --color-pure-black: #0D0D0D;
+            --color-dark-gray: #282D29;
+            --color-mid-gray: #808080;
+            --color-soft-green: #D6EEDD;
+            --color-canvas-white: #F5FFF8;
+            --color-absolute-white: #FFFFFF;
+            --font-instrument-sans: 'Instrument Sans', system-ui, -apple-system, sans-serif;
+        }
+        body { 
+            font-family: var(--font-instrument-sans); 
+            background-color: var(--color-canvas-white);
+            color: var(--color-dark-gray);
+            letter-spacing: -0.005em;
+            -webkit-tap-highlight-color: transparent;
+            text-rendering: optimizeLegibility;
+        }
+        h1, h2, h3, h4 { 
+            font-family: var(--font-instrument-sans);
+            letter-spacing: -0.015em;
+            text-wrap: balance;
+        }
+        p {
+            text-wrap: pretty;
+        }
+        .fade-in { animation: fadeIn 0.25s cubic-bezier(0.32, 0.72, 0, 1); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .option-btn { 
+            transition: all 0.2s cubic-bezier(0.32, 0.72, 0, 1); 
+            cursor: pointer; 
+            min-height: 54px; 
+        }
+        .option-btn:hover { 
+            border-color: var(--color-vibrant-green); 
+            background-color: var(--color-absolute-white);
+            box-shadow: 0px 8px 24px rgba(214, 238, 221, 0.45);
+        }
+        .option-btn:active {
+            transform: scale(0.985);
+        }
+        .shadow-double-bezel {
+            box-shadow: 0px 12px 32px -4px rgba(32, 41, 35, 0.06), 0px 4px 12px rgba(214, 238, 221, 0.4);
+        }
+        .shadow-inner-highlight {
+            box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.8), 0 2px 8px rgba(32, 41, 35, 0.04);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-[100dvh] flex flex-col selection:bg-[#34A853] selection:text-white relative">
+
+    <!-- Fixed Sticky Header (Solid & Grounded across the top) -->
+    <header class="sticky top-0 z-30 bg-[#202923] text-white border-b border-[#282D29]/80 shadow-xs">
+        <div class="max-w-2xl mx-auto px-4 h-14 sm:h-16 flex items-center justify-between gap-3">
+            <button onclick="goHome()" class="flex items-center gap-2 text-left cursor-pointer p-0.5 active:scale-[0.98] transition-transform group">
+                <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/10 flex items-center justify-center text-[#34A853] text-sm group-hover:bg-[#34A853] group-hover:text-white transition-all shadow-xs">⌂</span>
+                <div>
+                    <span id="nav-brand-title" class="block text-[11px] sm:text-xs font-bold tracking-tight text-white uppercase whitespace-nowrap">Inglês Instrumental</span>
+                </div>
+            </button>
+            
+            <!-- Language Selector Toggle -->
+            <div class="inline-flex items-center bg-white/10 p-0.5 rounded-full border border-white/15 text-[11px] font-semibold shrink-0">
+                <button id="btn-lang-pt" onclick="setLanguage('pt')" class="px-2.5 py-1 rounded-full bg-[#34A853] text-white transition-all cursor-pointer">
+                    PT
+                </button>
+                <button id="btn-lang-en" onclick="setLanguage('en')" class="px-2.5 py-1 rounded-full text-[#D6EEDD] hover:text-white transition-all cursor-pointer">
+                    EN
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container (Double-Bezel concentric curves) -->
+    <main class="flex-grow flex items-center justify-center px-3.5 py-4 sm:py-8">
+        <div id="quiz-container" class="w-full max-w-2xl mx-auto">
+            
+            <!-- Start Screen -->
+            <div id="start-screen" class="bg-[#202923]/[0.02] p-1.5 sm:p-2.5 rounded-[1.75rem] border border-[#D6EEDD]/90 shadow-double-bezel fade-in">
+                <div class="bg-white p-5 sm:p-9 rounded-[calc(1.75rem-0.375rem)] shadow-inner-highlight border border-[#D6EEDD]/50 text-left space-y-6 sm:space-y-8">
+                    
+                    <div class="inline-flex items-center gap-1.5 py-1 px-3.5 rounded-full bg-[#F5FFF8] border border-[#D6EEDD] text-[10px] sm:text-[11px] font-semibold text-[#202923] uppercase tracking-[0.15em]">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#34A853]"></span>
+                        <span id="start-kicker">Teste de Personalidade</span>
+                    </div>
+
+                    <div class="space-y-2.5">
+                        <h2 id="start-title" class="text-2xl sm:text-4xl font-bold text-[#0D0D0D] leading-[1.2] tracking-tight">
+                            Quem é você na fila do pão do Jornalismo Global?
+                        </h2>
+                        <p id="start-desc" class="text-[#282D29] text-sm sm:text-base leading-[1.65]">
+                            Entre falsos cognatos, crises virais e eufemismos corporativos, descubra qual área da comunicação te aguarda no mercado contemporâneo.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2.5 pt-1">
+                        <div id="start-evaluated-title" class="text-[10.5px] font-bold uppercase tracking-[0.12em] text-[#808080]">Áreas avaliadas no teste:</div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5" id="start-cards-container">
+                            <!-- Cards injected via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Button-in-Button Trailing Icon -->
+                    <div class="pt-2">
+                        <button id="start-btn-text" onclick="startQuiz()" class="w-full sm:w-auto bg-[#34A853] hover:bg-[#2d9449] active:scale-[0.98] text-white font-medium py-3 px-6 sm:px-7 rounded-full shadow-md hover:shadow-lg transition-all duration-300 text-sm sm:text-base flex items-center justify-center gap-3 cursor-pointer group">
+                            <span>Iniciar Quiz</span>
+                            <span class="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center shrink-0 group-hover:translate-x-1 transition-transform">→</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Screen -->
+            <div id="question-screen" class="hidden bg-[#202923]/[0.02] p-1.5 sm:p-2.5 rounded-[1.75rem] border border-[#D6EEDD]/90 shadow-double-bezel fade-in text-left">
+                <div class="bg-white p-5 sm:p-8 rounded-[calc(1.75rem-0.375rem)] shadow-inner-highlight border border-[#D6EEDD]/50 space-y-5">
+                    
+                    <!-- Question Header: Questão X de 10 on top line, category always on next line -->
+                    <div class="border-b border-[#D6EEDD]/60 pb-3 space-y-1">
+                        <div id="question-counter" class="text-[#0D0D0D] font-bold tracking-tight text-xs sm:text-sm uppercase">Questão 1 de 10</div>
+                        <div id="question-topic" class="text-[#808080] text-xs font-normal tracking-wide hidden"></div>
+                    </div>
+                    
+                    <div class="py-0.5">
+                        <h2 id="question-text" class="text-base sm:text-xl font-bold text-[#0D0D0D] leading-[1.35] tracking-tight"></h2>
+                    </div>
+                    
+                    <div id="options-container" class="space-y-2.5 pt-1">
+                        <!-- Options injected via JS -->
+                    </div>
+
+                    <!-- Centered back to home button on mobile -->
+                    <div class="pt-3 border-t border-[#D6EEDD]/60 flex flex-col sm:flex-row items-center justify-center sm:justify-center text-xs">
+                        <div class="w-full sm:w-auto flex justify-center">
+                            <button id="quiz-back-home-btn" onclick="goHome()" class="text-[#808080] hover:text-[#202923] active:scale-95 py-2 px-4 rounded-full hover:bg-[#F5FFF8] transition-colors cursor-pointer text-center">
+                                Voltar ao início
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Result Screen -->
+            <div id="result-screen" class="hidden bg-[#202923]/[0.02] p-1.5 sm:p-2.5 rounded-[1.75rem] border border-[#D6EEDD]/90 shadow-double-bezel fade-in text-left">
+                <div class="bg-white p-5 sm:p-9 rounded-[calc(1.75rem-0.375rem)] shadow-inner-highlight border border-[#D6EEDD]/50 space-y-6 sm:space-y-8">
+                    
+                    <div class="space-y-2">
+                        <div class="inline-flex items-center gap-1.5 py-1 px-3 rounded-full bg-[#F5FFF8] border border-[#D6EEDD] text-[10px] sm:text-[11px] font-semibold text-[#202923] uppercase tracking-[0.15em]">
+                            <span class="text-[#34A853]">✓</span>
+                            <span id="result-kicker">Diagnóstico Editorial</span>
+                        </div>
+
+                        <div>
+                            <h2 id="result-title" class="text-xl sm:text-3xl font-bold text-[#0D0D0D] tracking-tight"></h2>
+                        </div>
+                    </div>
+
+                    <div class="border-l-2 border-[#34A853] pl-3.5 py-2 bg-[#F5FFF8] rounded-r-[8px]">
+                        <p id="result-desc" class="text-[#282D29] text-xs sm:text-sm leading-relaxed"></p>
+                    </div>
+
+                    <!-- Affinity Breakdown Accordion -->
+                    <div class="pt-2 border-t border-[#D6EEDD]/60">
+                        <button type="button" onclick="toggleAffinityAccordion()" class="w-full flex justify-between items-center py-2 text-left group cursor-pointer focus:outline-none">
+                            <span id="distribution-title" class="font-semibold uppercase tracking-[0.1em] text-[10.5px] text-[#808080] group-hover:text-[#202923] transition-colors">
+                                Distribuição das suas afinidades
+                            </span>
+                            <div class="w-5 h-5 rounded-full bg-[#F5FFF8] border border-[#D6EEDD] flex items-center justify-center text-[#808080] group-hover:text-[#202923] transition-colors">
+                                <span id="accordion-chevron" class="text-[10px] transition-transform duration-300">▼</span>
+                            </div>
+                        </button>
+                        <div id="affinity-bars-container" class="hidden pt-2 pb-1 space-y-2.5">
+                            <!-- Injected via showResult -->
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons: Compartilhar Imagem (WhatsApp/Instagram), Baixar Imagem, Refazer -->
+                    <div class="pt-3 border-t border-[#D6EEDD]/60 space-y-2.5">
+                        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-2.5">
+                            <button id="result-share-img-btn" onclick="shareResultAsImage('share')" class="bg-[#34A853] hover:bg-[#2d9449] active:scale-[0.98] text-white font-medium py-2.5 px-5 sm:px-6 rounded-full transition-all text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer shadow-md group">
+                                <span id="result-share-img-label">Compartilhar Imagem</span>
+                                <span class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center shrink-0">↗</span>
+                            </button>
+
+                            <button id="result-download-img-btn" onclick="shareResultAsImage('download')" class="bg-transparent hover:bg-[#F5FFF8] active:scale-[0.98] text-[#202923] border border-[#202923] font-medium py-2.5 px-4 rounded-full transition-all text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer">
+                                <span>↓</span>
+                                <span id="result-download-img-label">Baixar Imagem</span>
+                            </button>
+
+                            <button id="result-retake-btn" onclick="restartQuiz()" class="bg-transparent hover:bg-[#F5FFF8] active:scale-[0.98] text-[#808080] hover:text-[#202923] font-medium py-2 px-3.5 rounded-full transition-all text-xs sm:text-sm flex items-center justify-center gap-1.5 cursor-pointer">
+                                <span>↺</span>
+                                <span id="result-retake-label">Refazer</span>
+                            </button>
+                        </div>
+
+                        <p id="result-share-hint" class="text-[11px] text-[#808080] text-center leading-relaxed">
+                            Gera um card em imagem pronto para o WhatsApp, Instagram Stories e Feed
+                        </p>
+
+                        <div id="result-share-toast" class="hidden p-2.5 rounded-[12px] bg-[#F5FFF8] border border-[#34A853]/40 text-[#202923] text-xs text-center font-medium"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer with exactly requested centered line break -->
+    <footer class="text-center py-6 px-4 text-[#808080] text-xs border-t border-[#D6EEDD]/60 bg-[#F5FFF8]">
+        <div class="max-w-2xl mx-auto space-y-2 text-center">
+            <p id="footer-copy-text" class="text-center leading-relaxed">
+                &copy; 2026 Leo Trevizani<br>
+                Nenhum estagiário foi explorado na criação deste quiz.
+            </p>
+            <p id="footer-course-text" class="text-[11px] text-[#808080]/80 text-center">
+                Inglês Instrumental aplicado ao Jornalismo
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        let currentLang = 'pt';
+
+        const questionsData = {
+            pt: [
+                {
+                    question: "1. Estourou uma crise nas redes sociais de proporções globais envolvendo uma cantora famosa e um político europeu. Qual é o seu primeiro instinto?",
+                    options: [
+                        { text: "Entrar em contato com fontes na Europa para compreender o contexto cultural e o idioma antes de publicar qualquer coisa.", profile: "correspondente" },
+                        { text: "Analisar as métricas: executar uma rotina automatizada para extrair milhares de publicações e identificar padrões de contas automatizadas.", profile: "bigdata" },
+                        { text: "Conter a equipe: 'Precisamos checar se o vídeo não é uma manipulação por inteligência artificial antes de divulgar!'.", profile: "checador" },
+                        { text: "Calcular imediatamente o impacto nas ações da gravadora no mercado financeiro e nas diretrizes de sustentabilidade da turnê.", profile: "b2b" }
+                    ]
+                },
+                {
+                    question: "2. Chega na redação um comunicado institucional estrangeiro: o presidente da empresa anuncia uma 'reestruturação para enxugar operações' e menciona 'dívida estratégica'. O que você lê nas entrelinhas?",
+                    options: [
+                        { text: "Trata-se de um malabarismo de relações públicas. Vou transformar isso em um relatório de inteligência de mercado para os investidores.", profile: "b2b" },
+                        { text: "Vou cruzar esses termos com os demonstrativos contábeis do semestre em uma planilha detalhada.", profile: "bigdata" },
+                        { text: "Vou traduzir isso para o meu público local mostrando como vai afetar a filial da nossa cidade.", profile: "correspondente" },
+                        { text: "Mentira descarada repleta de eufemismos. Nosso trabalho é expor a realidade: eles estão demitindo em massa e altamente endividados.", profile: "checador" }
+                    ]
+                },
+                {
+                    question: "3. Em uma cena de fechamento acelerado na redação: o que não pode faltar na sua mesa ou no navegador?",
+                    options: [
+                        { text: "O manual de redação, dois bloqueadores de anúncios e três abas de agências de checagem de fatos.", profile: "checador" },
+                        { text: "A rede profissional aberta com assinatura executiva, garrafa térmica e a agenda de reuniões do dia.", profile: "b2b" },
+                        { text: "Passaporte, três adaptadores de tomada internacionais e o aplicativo de idiomas com a rotina de estudos em dia.", profile: "correspondente" },
+                        { text: "Dois monitores amplos, modo escuro ativado, muito café, planilhas avançadas e editor de código abertos.", profile: "bigdata" }
+                    ]
+                },
+                {
+                    question: "4. O editor deseja colocar um cientista premiado e alguém que nega o formato esférico da Terra no mesmo debate sobre clima para buscar 'neutralidade'. O que você diz na reunião?",
+                    options: [
+                        { text: "'Reuni dados de quatro décadas de pesquisas climáticas aqui. Não faz sentido abrir espaço para opiniões sem respaldo empírico.'", profile: "bigdata" },
+                        { text: "'Se um lado afirma que chove e o outro diz que faz sol, nosso dever é abrir a janela e verificar! Isso é falsa equivalência!'", profile: "checador" },
+                        { text: "'Isso vai destruir a credibilidade da nossa instituição perante os anunciantes e parceiros de negócios!'", profile: "b2b" },
+                        { text: "'A regra da notícia é objetiva: adotar a pirâmide invertida, cortar quem não tem relevância e priorizar o fato comprovado.'", profile: "correspondente" }
+                    ]
+                },
+                {
+                    question: "5. Alerta de falso cognato! Um informe estrangeiro diz: 'The Mayor realized a comprehensive policy about the police'. Como você redige essa notícia em português?",
+                    options: [
+                        { text: "Sintetizo em tópicos executivos com foco no impacto econômico da política pública anunciada.", profile: "b2b" },
+                        { text: "Aplico a precisão do idioma: 'O prefeito executou uma política pública abrangente sobre segurança', fugindo da armadilha de traduzir 'percebeu' ou 'compreensiva'.", profile: "correspondente" },
+                        { text: "Desconfio da redação e entro em contato com órgãos oficiais para checar se ele percebeu algo ou se realmente colocou a medida em prática.", profile: "checador" },
+                        { text: "Ignoro a redação confusa, extraio os dados oficiais de criminalidade do município e construo um painel interativo de estatísticas.", profile: "bigdata" }
+                    ]
+                },
+                {
+                    question: "6. Qual obra audiovisual sobre o universo da comunicação mais prende a sua atenção?",
+                    options: [
+                        { text: "Tramas sobre grandes impérios corporativos, jogos de poder, negociações bilionárias e manipulação de imagem pública.", profile: "b2b" },
+                        { text: "Histórias sobre os bastidores dos algoritmos, manipulação por redes sociais e o poder invisível da análise de dados.", profile: "bigdata" },
+                        { text: "Produções sobre o jornalismo investigativo combativo, a luta contra a falsa neutralidade e as apurações ao vivo sob pressão ética.", profile: "checador" },
+                        { text: "Grandes investigações clássicas de rua, onde repórteres gastam a sola do sapato atrás de fontes confidenciais.", profile: "correspondente" }
+                    ]
+                },
+                {
+                    question: "7. Uma fonte confidencial repassa uma revelação bombástica sob sigilo total e proibição de citação direta. Como você conduz o trabalho?",
+                    options: [
+                        { text: "Utilizo a pista apenas para orientar a apuração, mas busco provas documentais irrefutáveis, já que não posso atribuir nada à fonte.", profile: "checador" },
+                        { text: "Tento negociar com a assessoria para permitir ao menos uma atribuição genérica, como 'um executivo de alto escalão do setor'.", profile: "b2b" },
+                        { text: "Embarco imediatamente para cobrir os desdobramentos no local dos acontecimentos, resguardando o sigilo da fonte com rigor.", profile: "correspondente" },
+                        { text: "Cruzo a informação recebida com bancos de dados vazados e utilizo ferramentas estatísticas para comprovar a hipótese.", profile: "bigdata" }
+                    ]
+                },
+                {
+                    question: "8. Um colega entrega um texto sobre um desastre com excesso de adjetivos, narrativa enrolada e voz passiva. Qual orientação você aplica?",
+                    options: [
+                        { text: "Transformar as estatísticas escondidas no meio do texto em um infográfico destacado logo no início da reportagem.", profile: "bigdata" },
+                        { text: "Eliminar sentimentalismos. Precisamos de fatos comprovados com clareza. Não se deve florear uma tragédia.", profile: "checador" },
+                        { text: "Mostrar em vez de apenas contar: cortar adjetivos, priorizar verbos de ação e colocar as informações principais no lide da matéria.", profile: "correspondente" },
+                        { text: "Destacar o impacto financeiro e as consequências econômicas na abertura, pois é isso que o mercado quer entender.", profile: "b2b" }
+                    ]
+                },
+                {
+                    question: "9. Faltam cinco minutos para o encerramento da edição. O sistema de publicação trava, as redes caem e o editor se desespera. Como você reage?",
+                    options: [
+                        { text: "Acesso o código-fonte da página, contorno o sistema travado e publico o conteúdo diretamente na estrutura digital.", profile: "bigdata" },
+                        { text: "Mantenho a calma enquanto tento rotear a internet pelo celular, porque meu voo para a próxima cobertura parte em breve.", profile: "correspondente" },
+                        { text: "Envio rapidamente uma nota oficial de esclarecimento para os parceiros e partes interessadas a fim de ganhar tempo.", profile: "b2b" },
+                        { text: "Mantenho a serenidade. Sem uma dupla checagem dos fatos eu não aperto o botão de publicar; a precisão vem antes da pressa.", profile: "checador" }
+                    ]
+                },
+                {
+                    question: "10. Ao noticiar a aprovação de uma nova legislação relevante, qual ângulo da cobertura você prioriza naturalmente?",
+                    options: [
+                        { text: "Contradições e conflitos: confrontar as declarações dos parlamentares com a realidade factual do texto legal.", profile: "checador" },
+                        { text: "Atribuição de responsabilidade: mapear grandes séries históricas para demonstrar numericamente quem causou o problema.", profile: "bigdata" },
+                        { text: "Interesse humano: relatar casos reais e histórias de vida impactadas pela medida, com linguagem viva e visual.", profile: "correspondente" },
+                        { text: "Consequências econômicas: analisar custos, tributos, perdas e ganhos para o setor produtivo e financeiro.", profile: "b2b" }
+                    ]
+                }
+            ],
+            en: [
+                {
+                    question: "1. A global social media scandal erupts involving a pop superstar and a prominent European politician. What is your immediate instinct?",
+                    options: [
+                        { text: "Contact sources in Europe to understand cultural nuances and local language before publishing anything.", profile: "correspondente" },
+                        { text: "Analyze the metrics: execute an automated script to scrape thousands of posts and detect bot patterns in trending hashtags.", profile: "bigdata" },
+                        { text: "Hold the team back: 'We must verify whether the video is an AI deepfake before publishing!'.", profile: "checador" },
+                        { text: "Assess the immediate fallout on the record label's market valuation and the tour's corporate sustainability index.", profile: "b2b" }
+                    ]
+                },
+                {
+                    question: "2. A foreign corporate press release arrives: the CEO announces 'downsizing to streamline operations' and cites 'strategic debt'. What do you read between the lines?",
+                    options: [
+                        { text: "Classic PR spin. I will turn this into a concise market intelligence briefing for institutional investors.", profile: "b2b" },
+                        { text: "I will cross-reference these terms with the company's financial balance sheets in a detailed spreadsheet model.", profile: "bigdata" },
+                        { text: "I will translate this for our local readership, explaining how regional employment and branch offices will be affected.", profile: "correspondente" },
+                        { text: "Pure corporate euphemisms. Our job is to expose the truth: mass layoffs and severe insolvency.", profile: "checador" }
+                    ]
+                },
+                {
+                    question: "3. Fast-paced deadline scene: What must be on your desk or open in your browser tabs at closing time?",
+                    options: [
+                        { text: "The editorial stylebook, two ad blockers, and three tabs open to fact-checking organizations.", profile: "checador" },
+                        { text: "A premium business network subscription, insulated travel mug, and the daily executive call roster.", profile: "b2b" },
+                        { text: "Passport, universal plug adapters, and the language app with your study streak intact.", profile: "correspondente" },
+                        { text: "Dual monitors, dark mode active, fresh coffee, advanced spreadsheets, and code editor open.", profile: "bigdata" }
+                    ]
+                },
+                {
+                    question: "4. The editor wants to pit an acclaimed climate scientist against a flat-earth conspiracy theorist in the name of 'neutrality'. What do you say in the meeting?",
+                    options: [
+                        { text: "'I have four decades of climate datasets organized here. Giving a platform to unverified claims has no empirical basis.'", profile: "bigdata" },
+                        { text: "'If one person says it is raining and another says it is dry, our job is to look out the window! That is false balance!'", profile: "checador" },
+                        { text: "'This will destroy our institutional credibility with reputable partners and advertisers!'", profile: "b2b" },
+                        { text: "'The reporting rule is clear: use the inverted pyramid, drop fringe theories, and lead with verified facts.'", profile: "correspondente" }
+                    ]
+                },
+                {
+                    question: "5. False friend alert! A foreign news wire reports: 'The Mayor realized a comprehensive policy about the police'. How do you translate and edit this accurately?",
+                    options: [
+                        { text: "Condense it into an executive briefing focusing on the economic and regulatory impact of the announced public guidelines.", profile: "b2b" },
+                        { text: "Apply precise vocabulary: 'The mayor enacted a broad public security policy', avoiding literal traps for 'perceived' or 'sympathetic'.", profile: "correspondente" },
+                        { text: "Question the wording and contact official spokespeople to confirm whether the measure was merely acknowledged or actually enacted.", profile: "checador" },
+                        { text: "Bypass the confusing prose, extract open municipal crime databases, and build an interactive statistics dashboard.", profile: "bigdata" }
+                    ]
+                },
+                {
+                    question: "6. Which film or series about media and journalism resonates most with you?",
+                    options: [
+                        { text: "Narratives about corporate power struggles, boardroom politics, billion-dollar mergers, and public perception.", profile: "b2b" },
+                        { text: "Stories about algorithmic power, social media engineering, data harvesting, and computational influence.", profile: "bigdata" },
+                        { text: "Dramas depicting hard-hitting investigative journalism, resisting false neutrality, and live reporting under ethical scrutiny.", profile: "checador" },
+                        { text: "Classic shoe-leather investigations where reporters hit the streets and cultivate confidential sources.", profile: "correspondente" }
+                    ]
+                },
+                {
+                    question: "7. A confidential source shares explosive revelations under 'Deep Background' with total anonymity. How do you proceed?",
+                    options: [
+                        { text: "Use the tip strictly as an investigative roadmap, but seek ironclad documentary proof since the source cannot be quoted.", profile: "checador" },
+                        { text: "Negotiate with their communications officer to allow an attribution such as 'a senior sector executive'.", profile: "b2b" },
+                        { text: "Depart immediately to report the developments on the ground while safeguarding source confidentiality at all costs.", profile: "correspondente" },
+                        { text: "Cross-examine the tip against leaked document archives and use statistical validation to substantiate the claim.", profile: "bigdata" }
+                    ]
+                },
+                {
+                    question: "8. A colleague submits a draft about a tragedy loaded with emotional adjectives, passive voice, and meandering prose. What guidance do you give?",
+                    options: [
+                        { text: "Take the statistics buried inside the text and convert them into an informative chart right at the top of the story.", profile: "bigdata" },
+                        { text: "Strip away decorative sentimentalism. We need verified facts delivered cleanly; editorial ethics forbid romanticizing disaster.", profile: "checador" },
+                        { text: "'Show, don't tell!' Cut unnecessary adjectives, rely on strong active verbs, and structure the essential facts in the lead.", profile: "correspondente" },
+                        { text: "Lead with the economic repercussions and market consequences, because that is what stakeholders urgently need to understand.", profile: "b2b" }
+                    ]
+                },
+                {
+                    question: "9. Five minutes to publishing deadline: The content management platform freezes, social platforms go down, and the editor is panicked. How do you react?",
+                    options: [
+                        { text: "Inspect page source code, bypass the frozen interface, and deploy the clean article markup directly.", profile: "bigdata" },
+                        { text: "Maintain focus while tethering mobile internet under high pressure, knowing your departure flight leaves shortly.", profile: "correspondente" },
+                        { text: "Promptly issue an official holding statement to partners and stakeholders to secure valuable breathing room.", profile: "b2b" },
+                        { text: "Stay calm and composed. Without independent double-checking I will not hit publish; accuracy always trumps panic.", profile: "checador" }
+                    ]
+                },
+                {
+                    question: "10. When covering the passage of significant new legislation, which angle do your eyes gravitate toward first?",
+                    options: [
+                        { text: "Conflict and contradictions: examining whether political rhetoric matches the actual provisions of the legal text.", profile: "checador" },
+                        { text: "Attribution of responsibility: mapping historical datasets to demonstrate numerically who caused the systemic issue.", profile: "bigdata" },
+                        { text: "Human interest: telling compelling personal stories about how the law impacts everyday lives through vivid, direct reporting.", profile: "correspondente" },
+                        { text: "Economic consequences: evaluating regulatory costs, fiscal revenue, business viability, and consumer market shifts.", profile: "b2b" }
+                    ]
+                }
+            ]
+        };
+
+        const profilesData = {
+            pt: {
+                correspondente: {
+                    title: "O Correspondente Internacional",
+                    desc: "Você é movido pela apuração de campo, pela cultura e pelos fatos em tempo real. Domina a técnica da pirâmide invertida e sabe que no jornalismo direto 'menos é mais'. Falsos cognatos e armadilhas de linguagem não enganam você, pois compreende a comunicação como uma ferramenta viva de conexão cultural. Seu passaporte está em dia?"
+                },
+                checador: {
+                    title: "O Checador de Fatos",
+                    desc: "Nada escapa do seu olhar crítico. Você segue a regra de ouro da verificação: se alguém diz que chove e outro diz que faz sol, o papel do jornalista é abrir a janela e checar. Você combate a falsa equivalência e a falsa neutralidade com firmeza. Sabe lidar com apurações sigilosas e desmascara manobras de comunicação institucional com facilidade."
+                },
+                bigdata: {
+                    title: "O Jornalista de Dados",
+                    desc: "Para você, relatos podem ser tendenciosos, mas os números revelam a verdade quando bem tratados. Você não depende de comunicados prontos: extrai e cruza bases estatísticas completas. Suas planilhas, códigos de automação e infográficos encontram padrões onde a maioria só enxerga confusão. Informação estruturada é o seu maior trunfo."
+                },
+                b2b: {
+                    title: "O Estrategista Corporativo",
+                    desc: "Você compreende perfeitamente o tabuleiro dos grandes negócios. É especialista em traduzir o jargão corporativo e os eufemismos de relações públicas em diagnósticos transparentes para investidores e tomadores de decisão. Sabe analisar custos, prever impactos econômicos e dialogar com clareza com o mercado."
+                }
+            },
+            en: {
+                correspondente: {
+                    title: "The Foreign Correspondent",
+                    desc: "You thrive on field reporting, cultural immersion, and real-time storytelling. You command the inverted pyramid and understand that direct journalism values clarity over fluff. False cognates never mislead you, because you treat language as a living medium of global connection. Is your passport ready?"
+                },
+                checador: {
+                    title: "The Fact-Checker",
+                    desc: "Nothing slips past your scrutiny. You live by the golden rule of investigative reporting: if someone says it is raining and another says it is dry, your duty is to open the window and verify. You challenge false balance and performative neutrality head-on, handle confidential sourcing with rigor, and dismantle corporate spin."
+                },
+                bigdata: {
+                    title: "The Data Journalist",
+                    desc: "To you, opinions can deceive, but clean numbers reveal reality. You do not wait for official handouts: you scrape, sanitize, and correlate vast datasets. Your spreadsheets, automated scripts, and interactive graphics locate actionable patterns where others see only noise. Structured data is your greatest edge."
+                },
+                b2b: {
+                    title: "The Corporate Strategist",
+                    desc: "You master the chess game of global commerce. You excel at translating corporate speak and public relations euphemisms into transparent market intelligence for decision-makers. You quantify fiscal consequences, anticipate regulatory shifts, and articulate clear insights for executive stakeholders."
+                }
+            }
+        };
+
+        const uiStrings = {
+            pt: {
+                brand: "Inglês Instrumental",
+                kicker: "Teste de Personalidade",
+                title: "Quem é você na fila do pão do Jornalismo Global?",
+                desc: "Entre falsos cognatos, crises virais e eufemismos corporativos, descubra qual área da comunicação te aguarda no mercado contemporâneo.",
+                evaluated: "Áreas avaliadas no teste:",
+                start: "Iniciar Quiz",
+                meta: "<span>10 questões rápidas</span> • <span>Alternativas dinâmicas</span> • <span>Inglês Instrumental</span>",
+                backHome: "Voltar ao início",
+                diagnostic: "Diagnóstico Editorial",
+                distributionTitle: "Distribuição das suas afinidades",
+                vote: "voto",
+                votes: "votos",
+                shareImageBtn: "Compartilhar Imagem",
+                downloadImageBtn: "Baixar Imagem",
+                generatingImage: "Gerando card...",
+                shareHint: "Gera um card em imagem pronto para o WhatsApp, Instagram Stories e Feed",
+                retake: "Refazer o Teste",
+                footerCopy: "&copy; 2026 Leo Trevizani<br>Nenhum estagiário foi explorado na criação deste quiz.",
+                footerCourse: "Inglês Instrumental aplicado ao Jornalismo",
+                cards: [
+                    { title: "Correspondente Global", desc: "Pirâmide invertida e comunicação direta." },
+                    { title: "Checador de Fatos", desc: "Verificação ética contra falsa equivalência." },
+                    { title: "Jornalista de Dados", desc: "Análise quantitativa e evidência estatística." },
+                    { title: "Estrategista Corporativo", desc: "Decodificação de jargões e inteligência de mercado." }
+                ]
+            },
+            en: {
+                brand: "Instrumental English",
+                kicker: "Personality Quiz",
+                title: "Who Are You in the Global Journalism Pecking Order?",
+                desc: "Between false cognates, viral crises, and corporate euphemisms, discover which field of communication awaits you in today's media landscape.",
+                evaluated: "Areas evaluated in this quiz:",
+                start: "Start Quiz",
+                meta: "<span>10 quick questions</span> • <span>Dynamic choices</span> • <span>Instrumental English</span>",
+                backHome: "Back to start",
+                diagnostic: "Editorial Diagnosis",
+                distributionTitle: "Affinity Distribution",
+                vote: "vote",
+                votes: "votes",
+                shareImageBtn: "Share Image",
+                downloadImageBtn: "Download Image",
+                generatingImage: "Generating card...",
+                shareHint: "Generates an image card ready for WhatsApp, Instagram Stories, and Feed",
+                retake: "Retake Quiz",
+                footerCopy: "&copy; 2026 Leo Trevizani<br>No interns were harmed in the making of this quiz.",
+                footerCourse: "Instrumental English applied to Journalism",
+                cards: [
+                    { title: "Foreign Correspondent", desc: "Inverted pyramid and direct reporting." },
+                    { title: "Fact-Checker", desc: "Ethical verification against false balance." },
+                    { title: "Data Journalist", desc: "Quantitative analysis and empirical evidence." },
+                    { title: "Corporate Strategist", desc: "Decoding spin and market intelligence." }
+                ]
+            }
+        };
+
+        let currentQuestionIndex = 0;
+        let scores = { correspondente: 0, checador: 0, bigdata: 0, b2b: 0 };
+        let isAffinityAccordionOpen = false;
+        let isGeneratingImage = false;
+
+        function showShareToast(message) {
+            const toast = document.getElementById('result-share-toast');
+            toast.innerText = message;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 4500);
+        }
+
+        function drawRoundRect(ctx, x, y, w, h, r) {
+            if (typeof ctx.roundRect === 'function') {
+                ctx.beginPath();
+                ctx.roundRect(x, y, w, h, r);
+            } else {
+                ctx.beginPath();
+                ctx.moveTo(x + r, y);
+                ctx.lineTo(x + w - r, y);
+                ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+                ctx.lineTo(x + w, y + h - r);
+                ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+                ctx.lineTo(x + r, y + h);
+                ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+                ctx.lineTo(x, y + r);
+                ctx.quadraticCurveTo(x, y, x + r, y);
+                ctx.closePath();
+            }
+        }
+
+        function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+            const words = text.split(' ');
+            let line = '';
+            let curY = y;
+            for (let n = 0; n < words.length; n++) {
+                const testLine = line + words[n] + ' ';
+                const metrics = ctx.measureText(testLine);
+                if (metrics.width > maxWidth && n > 0) {
+                    ctx.fillText(line.trim(), x, curY);
+                    line = words[n] + ' ';
+                    curY += lineHeight;
+                } else {
+                    line = testLine;
+                }
+            }
+            ctx.fillText(line.trim(), x, curY);
+            return curY + lineHeight;
+        }
+
+        function createResultCardBlob(winningKey) {
+            return new Promise((resolve) => {
+                const canvas = document.createElement('canvas');
+                canvas.width = 1080;
+                canvas.height = 1440;
+                const ctx = canvas.getContext('2d');
+                if (!ctx) { resolve(null); return; }
+
+                const profs = profilesData[currentLang];
+                const winProf = profs[winningKey];
+
+                ctx.fillStyle = '#F5FFF8';
+                ctx.fillRect(0, 0, 1080, 1440);
+
+                ctx.fillStyle = 'rgba(52, 168, 83, 0.05)';
+                ctx.beginPath();
+                ctx.arc(100, 100, 160, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.beginPath();
+                ctx.arc(980, 1340, 200, 0, Math.PI * 2);
+                ctx.fill();
+
+                drawRoundRect(ctx, 44, 44, 992, 1352, 36);
+                ctx.fillStyle = '#FFFFFF';
+                ctx.fill();
+                ctx.strokeStyle = '#D6EEDD';
+                ctx.lineWidth = 3;
+                ctx.stroke();
+
+                const pillText = currentLang === 'pt' ? 'TESTE DE PERSONALIDADE' : 'PERSONALITY QUIZ';
+                ctx.font = 'bold 15px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+                const pillTextWidth = ctx.measureText(pillText).width;
+                const pillWidth = pillTextWidth + 48;
+                drawRoundRect(ctx, 84, 84, pillWidth, 38, 19);
+                ctx.fillStyle = '#202923';
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.arc(104, 103, 5, 0, Math.PI * 2);
+                ctx.fillStyle = '#34A853';
+                ctx.fill();
+
+                ctx.fillStyle = '#FFFFFF';
+                ctx.fillText(pillText, 120, 108);
+
+                ctx.fillStyle = '#0D0D0D';
+                ctx.font = 'bold 30px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+                ctx.fillText(currentLang === 'pt' ? 'Inglês Instrumental' : 'Instrumental English', 84, 164);
+
+                ctx.fillStyle = '#808080';
+                ctx.font = '500 18px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+                ctx.fillText(currentLang === 'pt' ? 'Jornalismo & Bastidores • Prof. Leo Trevizani' : 'Journalism & Beat • Prof. Leo Trevizani', 84, 196);
+
+                ctx.strokeStyle = '#EAF5EE';
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.moveTo(84, 222);
+                ctx.lineTo(996, 222);
+                ctx.stroke();
+
+                drawRoundRect(ctx, 84, 246, 220, 32, 16);
+                ctx.fillStyle = '#F5FFF8';
+                ctx.fill();
+                ctx.strokeStyle = '#D6EEDD';
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+
+                ctx.fillStyle = '#202923';
+                ctx.font = 'bold 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+                ctx.fillText(currentLang === 'pt' ? '✓ DIAGNÓSTICO EDITORIAL' : '✓ EDITORIAL DIAGNOSIS', 98, 267);
+
+                ctx.fillStyle = '#0D0D0D';
+                ctx.font = 'bold 44px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+                ctx.fillText(winProf.title, 84, 324);
+
+                drawRoundRect(ctx, 84, 350, 912, 160, 16);
+                ctx.fillStyle = '#F5FFF8';
+                ctx.fill();
+                ctx.strokeStyle = '#D6EEDD';
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+
+                drawRoundRect(ctx, 84, 350, 8, 160, 4);
+                ctx.fillStyle = '#34A853';
+                ctx.fill();
+
+                ctx.fillStyle = '#282D29';
+                ctx.font = 'italic 21px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+                wrapText(ctx, `"${winProf.quote || winProf.desc}"`, 114, 395, 840, 32);
+
+                ctx.fillStyle = '#808080';
+                ctx.font = 'bold 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+                ctx.fillText(currentLang === 'pt' ? 'COMPETÊNCIAS EM DESTAQUE:' : 'HIGHLIGHTED COMPETENCIES:', 84, 550);
+
+                let skillX = 84;
+                const skillY = 566;
+                ctx.font = '600 16px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+                const skillsList = winProf.skills || ["Comunicação Direta", "Inglês Instrumental", "Ética Editorial"];
+                skillsList.forEach((skill) => {
+                    const sw = ctx.measureText(skill).width;
+                    const pillW = sw + 28;
+                    if (skillX + pillW > 996) return;
+                    drawRoundRect(ctx, skillX, skillY, pillW, 34, 17);
+                    ctx.fillStyle = '#F5FFF8';
+                    ctx.fill();
+                    ctx.strokeStyle = '#D6EEDD';
+                    ctx.lineWidth = 1.5;
+                    ctx.stroke();
+
+                    ctx.fillStyle = '#202923';
+                    ctx.fillText(skill, skillX + 14, skillY + 23);
+                    skillX += pillW + 10;
+                });
+
+                ctx.fillStyle = '#808080';
+                ctx.font = 'bold 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+                ctx.fillText(currentLang === 'pt' ? 'DISTRIBUIÇÃO DAS SUAS AFINIDADES:' : 'AFFINITY DISTRIBUTION:', 84, 650);
+
+                let barStartY = 680;
+                const total = 10;
+                Object.keys(profs).forEach((key) => {
+                    const item = profs[key];
+                    const isWinner = key === winningKey;
+                    const count = scores[key] || 0;
+                    const percent = Math.round((count / total) * 100);
+                    const voteLabel = count === 1 ? (currentLang === 'pt' ? 'voto' : 'vote') : (currentLang === 'pt' ? 'votos' : 'votes');
+
+                    ctx.fillStyle = isWinner ? '#34A853' : '#282D29';
+                    ctx.font = isWinner ? 'bold 20px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' : '500 19px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+                    ctx.fillText(item.title, 84, barStartY);
+
+                    const scoreText = `${count} ${voteLabel} (${percent}%)`;
+                    ctx.fillStyle = isWinner ? '#34A853' : '#808080';
+                    ctx.font = isWinner ? 'bold 18px monospace' : '500 18px monospace';
+                    const scoreWidth = ctx.measureText(scoreText).width;
+                    ctx.fillText(scoreText, 996 - scoreWidth, barStartY);
+
+                    drawRoundRect(ctx, 84, barStartY + 12, 912, 12, 6);
+                    ctx.fillStyle = '#EAF5EE';
+                    ctx.fill();
+
+                    const barWidth = Math.max(12, (percent / 100) * 912);
+                    drawRoundRect(ctx, 84, barStartY + 12, barWidth, 12, 6);
+                    ctx.fillStyle = isWinner ? '#34A853' : '#808080';
+                    ctx.fill();
+
+                    barStartY += 72;
+                });
+
+                ctx.strokeStyle = '#EAF5EE';
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.moveTo(84, 1210);
+                ctx.lineTo(996, 1210);
+                ctx.stroke();
+
+                ctx.fillStyle = '#0D0D0D';
+                ctx.font = 'bold 20px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText(
+                    currentLang === 'pt' ? 'Quem é você na fila do pão do Jornalismo Global?' : 'Who Are You in the Global Journalism Pecking Order?',
+                    540,
+                    1252
+                );
+
+                ctx.fillStyle = '#808080';
+                ctx.font = '500 16px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+                ctx.fillText('© 2026 Leo Trevizani • Nenhum estagiário foi explorado na criação deste quiz.', 540, 1286);
+                ctx.fillText(
+                    currentLang === 'pt' ? 'Inglês Instrumental aplicado ao Jornalismo' : 'Instrumental English applied to Journalism',
+                    540,
+                    1314
+                );
+
+                ctx.textAlign = 'start';
+
+                canvas.toBlob((blob) => {
+                    resolve(blob);
+                }, 'image/png');
+            });
+        }
+
+        async function shareResultAsImage(mode) {
+            if (isGeneratingImage) return;
+            isGeneratingImage = true;
+
+            const labelEl = document.getElementById('result-share-img-label');
+            const prevText = labelEl.innerText;
+            labelEl.innerText = currentLang === 'pt' ? 'Gerando card...' : 'Generating card...';
+
+            const winningKey = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+            const winProf = profilesData[currentLang][winningKey];
+
+            try {
+                const blob = await createResultCardBlob(winningKey);
+                if (!blob) throw new Error("Could not create image");
+
+                const fileName = currentLang === 'pt' ? 'meu-papel-no-jornalismo.png' : 'my-journalism-role.png';
+                const file = new File([blob], fileName, { type: 'image/png' });
+
+                const triggerDownload = () => {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = fileName;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    setTimeout(() => URL.revokeObjectURL(url), 4000);
+                };
+
+                if (mode === 'download') {
+                    triggerDownload();
+                    showShareToast(currentLang === 'pt' ? 'Imagem baixada no seu celular!' : 'Image downloaded to your device!');
+                    return;
+                }
+
+                const shareTitle = currentLang === 'pt'
+                    ? `Quiz de Jornalismo Moderno: Meu perfil é ${winProf.title}`
+                    : `Modern Journalism Quiz: My role is ${winProf.title}`;
+                const shareText = currentLang === 'pt'
+                    ? `Fiz o quiz de Inglês Instrumental do Prof. Leo Trevizani e meu perfil dominante foi ${winProf.title}! Confira:`
+                    : `I took Prof. Leo Trevizani's Instrumental English quiz and my profile is ${winProf.title}! Check it out:`;
+
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    await navigator.share({
+                        files: [file],
+                        title: shareTitle,
+                        text: shareText
+                    });
+                    showShareToast(currentLang === 'pt' ? 'Card compartilhado com sucesso!' : 'Card shared successfully!');
+                } else {
+                    triggerDownload();
+                    try {
+                        if (navigator.clipboard && window.ClipboardItem) {
+                            await navigator.clipboard.write([
+                                new ClipboardItem({ 'image/png': blob })
+                            ]);
+                            showShareToast(currentLang === 'pt'
+                                ? 'Imagem baixada e copiada! Pronta para colar no WhatsApp ou postar no Instagram.'
+                                : 'Image downloaded and copied! Ready to paste into WhatsApp or share on Instagram.');
+                        } else {
+                            showShareToast(currentLang === 'pt'
+                                ? 'Imagem baixada no seu celular! Pronta para postar no WhatsApp ou Instagram.'
+                                : 'Image downloaded to your device! Ready to share on WhatsApp or Instagram.');
+                        }
+                    } catch {
+                        showShareToast(currentLang === 'pt'
+                            ? 'Imagem baixada no seu celular! Pronta para postar no WhatsApp ou Instagram.'
+                            : 'Image downloaded to your device! Ready to share on WhatsApp or Instagram.');
+                    }
+                }
+            } catch (err) {
+                if (err?.name !== 'AbortError') {
+                    showShareToast(currentLang === 'pt' ? 'Imagem baixada com sucesso!' : 'Image downloaded successfully!');
+                }
+            } finally {
+                isGeneratingImage = false;
+                labelEl.innerText = prevText;
+            }
+        }
+
+        function toggleAffinityAccordion() {
+            isAffinityAccordionOpen = !isAffinityAccordionOpen;
+            const container = document.getElementById('affinity-bars-container');
+            const chevron = document.getElementById('accordion-chevron');
+            if (isAffinityAccordionOpen) {
+                container.classList.remove('hidden');
+                chevron.style.transform = 'rotate(180deg)';
+                chevron.classList.add('text-[#34A853]');
+            } else {
+                container.classList.add('hidden');
+                chevron.style.transform = 'rotate(0deg)';
+                chevron.classList.remove('text-[#34A853]');
+            }
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            const btnPt = document.getElementById('btn-lang-pt');
+            const btnEn = document.getElementById('btn-lang-en');
+
+            if (lang === 'pt') {
+                btnPt.className = "px-2.5 py-1 rounded-full bg-[#34A853] text-white transition-all cursor-pointer";
+                btnEn.className = "px-2.5 py-1 rounded-full text-[#D6EEDD] hover:text-white transition-all cursor-pointer";
+            } else {
+                btnPt.className = "px-2.5 py-1 rounded-full text-[#D6EEDD] hover:text-white transition-all cursor-pointer";
+                btnEn.className = "px-2.5 py-1 rounded-full bg-[#34A853] text-white transition-all cursor-pointer";
+            }
+
+            renderStartScreen();
+            if (!document.getElementById('question-screen').classList.contains('hidden')) {
+                renderQuestion();
+            }
+        }
+
+        function renderStartScreen() {
+            const s = uiStrings[currentLang];
+            document.getElementById('nav-brand-title').innerText = s.brand;
+            document.getElementById('start-kicker').innerText = s.kicker;
+            document.getElementById('start-title').innerText = s.title;
+            document.getElementById('start-desc').innerText = s.desc;
+            document.getElementById('start-evaluated-title').innerText = s.evaluated;
+            document.getElementById('start-btn-text').innerHTML = `<span>${s.start}</span> <span class="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center shrink-0">→</span>`;
+            document.getElementById('quiz-back-home-btn').innerText = s.backHome;
+            document.getElementById('result-kicker').innerText = s.diagnostic;
+            document.getElementById('distribution-title').innerText = s.distributionTitle;
+            document.getElementById('result-share-img-label').innerText = s.shareImageBtn;
+            document.getElementById('result-download-img-label').innerText = s.downloadImageBtn;
+            document.getElementById('result-retake-label').innerText = s.retake;
+            document.getElementById('result-share-hint').innerText = s.shareHint;
+            document.getElementById('footer-copy-text').innerHTML = s.footerCopy;
+            document.getElementById('footer-course-text').innerText = s.footerCourse;
+
+            const cardsContainer = document.getElementById('start-cards-container');
+            cardsContainer.innerHTML = '';
+            s.cards.forEach(c => {
+                const div = document.createElement('div');
+                div.className = "p-3.5 sm:p-4 rounded-[14px] bg-[#F5FFF8] border border-[#D6EEDD]";
+                div.innerHTML = `<h4 class="text-xs font-semibold text-[#0D0D0D] tracking-tight">${c.title}</h4><p class="text-[11px] text-[#808080] leading-snug mt-0.5">${c.desc}</p>`;
+                cardsContainer.appendChild(div);
+            });
+        }
+
+        function goHome() {
+            scores = { correspondente: 0, checador: 0, bigdata: 0, b2b: 0 };
+            currentQuestionIndex = 0;
+            isAffinityAccordionOpen = false;
+            document.getElementById('start-screen').classList.remove('hidden');
+            document.getElementById('question-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.add('hidden');
+        }
+
+        function startQuiz() {
+            scores = { correspondente: 0, checador: 0, bigdata: 0, b2b: 0 };
+            currentQuestionIndex = 0;
+            isAffinityAccordionOpen = false;
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.add('hidden');
+            document.getElementById('question-screen').classList.remove('hidden');
+            renderQuestion();
+        }
+
+        function restartQuiz() {
+            startQuiz();
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function renderQuestion() {
+            const list = questionsData[currentLang];
+            const q = list[currentQuestionIndex];
+
+            document.getElementById('question-text').innerText = q.question;
+            // Questão X de 10 on top line, category always on next line
+            document.getElementById('question-counter').innerText = currentLang === 'pt'
+                ? `Questão ${currentQuestionIndex + 1} de ${list.length}`
+                : `Question ${currentQuestionIndex + 1} of ${list.length}`;
+
+            const topicEl = document.getElementById('question-topic');
+            if (q.topic) {
+                topicEl.innerText = q.topic;
+                topicEl.classList.remove('hidden');
+            } else {
+                topicEl.classList.add('hidden');
+            }
+
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            const shuffledOptions = shuffleArray([...q.options]);
+
+            shuffledOptions.forEach((opt, idx) => {
+                const letter = String.fromCharCode(65 + idx);
+                const btn = document.createElement('button');
+                btn.className = 'option-btn w-full text-left bg-[#F5FFF8] border border-[#D6EEDD] hover:border-[#34A853] text-[#282D29] font-normal p-3.5 sm:p-4 rounded-[14px] text-xs sm:text-sm flex items-start gap-3.5 cursor-pointer';
+                btn.innerHTML = `<span class="shrink-0 w-6 h-6 rounded-full bg-white border border-[#D6EEDD] text-[#202923] text-xs font-semibold flex items-center justify-center mt-0.5">${letter}</span><span class="flex-1 leading-relaxed">${opt.text}</span>`;
+                btn.onclick = () => {
+                    btn.classList.add('bg-[#34A853]/10', 'border-[#34A853]');
+                    setTimeout(() => handleAnswer(opt.profile), 180);
+                };
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function handleAnswer(profile) {
+            scores[profile]++;
+            currentQuestionIndex++;
+
+            const list = questionsData[currentLang];
+            if (currentQuestionIndex < list.length) {
+                renderQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            document.getElementById('question-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+
+            const s = uiStrings[currentLang];
+            let winningProfile = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+            const prof = profilesData[currentLang][winningProfile];
+            
+            document.getElementById('result-title').innerText = prof.title;
+            document.getElementById('result-desc').innerText = prof.desc;
+
+            // Reset and populate affinity accordion
+            isAffinityAccordionOpen = false;
+            const container = document.getElementById('affinity-bars-container');
+            container.classList.add('hidden');
+            const chevron = document.getElementById('accordion-chevron');
+            chevron.style.transform = 'rotate(0deg)';
+            chevron.classList.remove('text-[#34A853]');
+
+            container.innerHTML = '';
+            const total = 10;
+            const profs = profilesData[currentLang];
+            Object.keys(profs).forEach(key => {
+                const item = profs[key];
+                const count = scores[key] || 0;
+                const percent = Math.round((count / total) * 100);
+                const isWinner = key === winningProfile;
+
+                const row = document.createElement('div');
+                row.className = 'space-y-1';
+                row.innerHTML = `
+                    <div class="flex justify-between items-center text-[11px] sm:text-xs">
+                        <span class="font-medium ${isWinner ? 'text-[#34A853] font-bold' : 'text-[#282D29]'}">
+                            ${item.title}
+                        </span>
+                        <span class="font-mono ${isWinner ? 'text-[#34A853] font-semibold' : 'text-[#808080]'}">
+                            ${count} ${count === 1 ? s.vote : s.votes} (${percent}%)
+                        </span>
+                    </div>
+                    <div class="w-full bg-[#D6EEDD]/70 rounded-full h-1.5 overflow-hidden">
+                        <div class="h-1.5 rounded-full transition-all duration-700 ${isWinner ? 'bg-[#34A853]' : 'bg-[#808080]'}" style="width: ${percent}%"></div>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        // Initialize UI
+        renderStartScreen();
+    </script>
+</body>
+</html>

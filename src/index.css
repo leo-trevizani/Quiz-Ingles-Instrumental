@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+:root {
+  /* Colors */
+  --color-dark-green: #202923;
+  --color-vibrant-green: #34A853;
+  --color-pure-black: #0D0D0D;
+  --color-dark-gray: #282D29;
+  --color-mid-gray: #808080;
+  --color-soft-green: #D6EEDD;
+  --color-canvas-white: #F5FFF8;
+  --color-absolute-white: #FFFFFF;
+
+  /* Typography */
+  --font-instrument-sans: 'Instrument Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  /* Border Radius */
+  --radius-cards: 24px;
+  --radius-inputs: 14px;
+  --radius-buttons: 9999px;
+  --radius-tags: 9999px;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-instrument-sans);
+    background-color: var(--color-canvas-white);
+    color: var(--color-dark-gray);
+    letter-spacing: -0.005em;
+    -webkit-tap-highlight-color: transparent;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-instrument-sans);
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+.font-instrument {
+  font-family: var(--font-instrument-sans);
+}
+
+/* Custom Cubic-Bezier Timing */
+.ease-fluid {
+  transition-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* Double-Bezel Hardware Shadows & Inner Highlights */
+.shadow-double-bezel {
+  box-shadow: 0px 12px 32px -4px rgba(32, 41, 35, 0.06), 0px 4px 12px rgba(214, 238, 221, 0.4);
+}
+
+.shadow-inner-highlight {
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.8), 0 2px 8px rgba(32, 41, 35, 0.04);
+}
+
+.shadow-premium-light {
+  box-shadow: 0px 8px 24px rgba(214, 238, 221, 0.45);
+}
+
+.shadow-premium-dark {
+  box-shadow: 0px 18px 48px rgba(32, 41, 35, 0.35);
+}
+
+/* Subtle Tactile Click Ripple */
+@keyframes pulseSubtle {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.985); }
+  100% { transform: scale(1); }
+}
+
+.animate-pulse-subtle {
+  animation: pulseSubtle 0.25s cubic-bezier(0.32, 0.72, 0, 1);
+}
