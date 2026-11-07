@@ -1,6 +1,8 @@
 {
-  "name": "Quiz: Qual papel do Jornalismo Moderno é a sua cara?",
+  "name": "Quiz - Inglês Instrumental",
   "description": "Quiz interativo de personalidade para Inglês Instrumental com o Prof. Leo Trevizani explorando perfis do jornalismo moderno, news frames e corporate speak.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }
