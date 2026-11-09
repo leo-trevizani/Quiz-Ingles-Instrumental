@@ -27,6 +27,7 @@ export type ProfileKey = 'correspondente' | 'checador' | 'bigdata' | 'b2b';
 interface Option {
   text: string;
   profile: ProfileKey;
+  image?: string;
 }
 
 interface Question {
@@ -50,6 +51,13 @@ export const PROFILE_IMAGES: Record<ProfileKey, string> = {
   b2b: getAssetUrl('assets/aistudio/Corporate_PR_d25fa1f9.jpeg')
 };
 
+export const JOURNALIST_IMAGES = {
+  bianca: getAssetUrl('assets/aistudio/Bianca_Rothier_ca3166b2.png'),
+  natuza: getAssetUrl('assets/aistudio/Natuza_Nery_d1edb0ad.png'),
+  spagnuolo: getAssetUrl('assets/aistudio/Se_rgio_Spagnuolo_90aec12f.png'),
+  flavia: getAssetUrl('assets/aistudio/Fla_via_Oliveira_56bf735a.png')
+};
+
 interface ProfileInfo {
   title: string;
   subtitle: string;
@@ -71,107 +79,107 @@ const QUESTIONS_DATA: Record<Language, Question[]> = {
   pt: [
     {
       id: 1,
-      topic: "Crise Global e Checagem",
-      question: "1. Estourou uma crise nas redes sociais de proporções globais envolvendo uma cantora famosa e um político europeu. Qual é o seu primeiro instinto?",
+      topic: "Escândalo Global e Redes Sociais",
+      question: "Estourou um escândalo no Twitter de proporções globais envolvendo Taylor Swift e um político europeu. Qual é o seu primeiro instinto?",
       options: [
-        { text: "Entrar em contato com fontes na Europa para compreender o contexto cultural e o idioma antes de publicar qualquer coisa.", profile: "correspondente" },
-        { text: "Analisar as métricas: executar uma rotina automatizada para extrair milhares de publicações e identificar padrões de contas automatizadas.", profile: "bigdata" },
-        { text: "Conter a equipe: 'Precisamos checar se o vídeo não é uma manipulação por inteligência artificial antes de divulgar!'.", profile: "checador" },
-        { text: "Calcular imediatamente o impacto nas ações da gravadora no mercado financeiro e nas diretrizes de sustentabilidade da turnê.", profile: "b2b" }
+        { text: "Ligar para fontes na Europa para entender o contexto e buscar outras fontes jornalísticas internacionais.", profile: "correspondente" },
+        { text: "Analisar os trend topics para entender o que está sendo dito nos principais tweets (quem sabe rodar um script?).", profile: "bigdata" },
+        { text: "Checar se não é fake news antes de publicar qualquer coisa (e atualizar a cada 5 segundos o perfil da Taylor).", profile: "checador" },
+        { text: "Será que isso vai afetar a próxima turnê dela?.", profile: "b2b" }
       ]
     },
     {
       id: 2,
       topic: "Discurso Corporativo e Relações Públicas",
-      question: "2. Chega na redação um comunicado institucional estrangeiro: o presidente da empresa anuncia uma 'reestruturação para enxugar operações' e menciona 'dívida estratégica'. O que você lê nas entrelinhas?",
+      question: "Chega na redação um press release gringo de um CEO que anuncia uma 'reestruturação para enxugar a operação'. Qual a sua reação?",
       options: [
-        { text: "Trata-se de um malabarismo de relações públicas. Vou transformar isso em um relatório de inteligência de mercado para os investidores.", profile: "b2b" },
-        { text: "Vou cruzar esses termos com os demonstrativos contábeis do semestre em uma planilha detalhada.", profile: "bigdata" },
+        { text: "Transformar isso em um relatório de inteligência de mercado financeiro.", profile: "b2b" },
+        { text: "Vou cruzar com os dados financeiros da empresa com os números anunciados.", profile: "bigdata" },
         { text: "Vou traduzir isso para o meu público local mostrando como vai afetar a filial da nossa cidade.", profile: "correspondente" },
-        { text: "Mentira descarada repleta de eufemismos. Nosso trabalho é expor a realidade: eles estão demitindo em massa e altamente endividados.", profile: "checador" }
+        { text: "Mentira descarada com eufemismos! Eles estão demitindo em massa e devendo até a alma.", profile: "checador" }
       ]
     },
     {
       id: 3,
-      topic: "Rotina de Redação e Hábitos",
-      question: "3. Em uma cena de fechamento acelerado na redação: o que não pode faltar na sua mesa ou no navegador?",
+      topic: "Navegador e Rotina de Trabalho",
+      question: "O que não pode faltar no seu navegador?",
       options: [
-        { text: "O manual de redação, dois bloqueadores de anúncios e três abas de agências de checagem de fatos.", profile: "checador" },
-        { text: "A rede profissional aberta com assinatura executiva, garrafa térmica e a agenda de reuniões do dia.", profile: "b2b" },
-        { text: "Passaporte, três adaptadores de tomada internacionais e o aplicativo de idiomas com a rotina de estudos em dia.", profile: "correspondente" },
-        { text: "Dois monitores amplos, modo escuro ativado, muito café, planilhas avançadas e editor de código abertos.", profile: "bigdata" }
+        { text: "Extensão de bloqueador de anúncios", profile: "checador" },
+        { text: "Aba com o feed do LinkedIn", profile: "b2b" },
+        { text: "Aba com o Duolingo cobrando a ofensiva", profile: "correspondente" },
+        { text: "Usar o “Inspecionar Elemento” do Dev Tools", profile: "bigdata" }
       ]
     },
     {
       id: 4,
-      topic: "Neutralidade versus Falsa Equivalência",
-      question: "4. O editor deseja colocar um cientista premiado e alguém que nega o formato esférico da Terra no mesmo debate sobre clima para buscar 'neutralidade'. O que você diz na reunião?",
+      topic: "Neutralidade e Falsa Equivalência",
+      question: "O editor quer chamar 2 convidados para um painel climático alegando “neutralidade”. Qual é sua principal preocupação?",
       options: [
-        { text: "'Reuni dados de quatro décadas de pesquisas climáticas aqui. Não faz sentido abrir espaço para opiniões sem respaldo empírico.'", profile: "bigdata" },
-        { text: "'Se um lado afirma que chove e o outro diz que faz sol, nosso dever é abrir a janela e verificar! Isso é falsa equivalência!'", profile: "checador" },
-        { text: "'Isso vai destruir a credibilidade da nossa instituição perante os anunciantes e parceiros de negócios!'", profile: "b2b" },
-        { text: "'A regra da notícia é objetiva: adotar a pirâmide invertida, cortar quem não tem relevância e priorizar o fato comprovado.'", profile: "correspondente" }
+        { text: "Buscar dados de aquecimento global para alimentar o roteiro dessa conversa", profile: "bigdata" },
+        { text: "Checar o histórico dos 2 convidados para entender qual a autoridade deles no assunto", profile: "checador" },
+        { text: "Linkar a conversa com os canais de mídia que os convidados já dominam", profile: "b2b" },
+        { text: "Entender a influência desses convidados em seus respectivos mercados e regiões (se eles foram de regiões diferentes)", profile: "correspondente" }
       ]
     },
     {
       id: 5,
-      topic: "Armadilhas de Significado e Falsos Cognatos",
-      question: "5. Alerta de falso cognato! Um informe estrangeiro diz: 'The Mayor realized a comprehensive policy about the police'. Como você redige essa notícia em português?",
+      topic: "Ícones do Jornalismo Global",
+      question: "Qual seu ícone favorito do jornalismo global?",
       options: [
-        { text: "Sintetizo em tópicos executivos com foco no impacto econômico da política pública anunciada.", profile: "b2b" },
-        { text: "Aplico a precisão do idioma: 'O prefeito executou uma política pública abrangente sobre segurança', fugindo da armadilha de traduzir 'percebeu' ou 'compreensiva'.", profile: "correspondente" },
-        { text: "Desconfio da redação e entro em contato com órgãos oficiais para checar se ele percebeu algo ou se realmente colocou a medida em prática.", profile: "checador" },
-        { text: "Ignoro a redação confusa, extraio os dados oficiais de criminalidade do município e construo um painel interativo de estatísticas.", profile: "bigdata" }
+        { text: "Bianca Rothier: Entrando ao vivo direto de Genebra, debaixo de neve.", profile: "correspondente", image: JOURNALIST_IMAGES.bianca },
+        { text: "Natuza Nery: Desmentindo fatos ao vivo com dados no ponto eletrônico.", profile: "checador", image: JOURNALIST_IMAGES.natuza },
+        { text: "Sérgio Spagnuolo: rodando uma análise de dados para saber como o mercado internacional vai reagir.", profile: "bigdata", image: JOURNALIST_IMAGES.spagnuolo },
+        { text: "Flávia Oliveira: Explicando o impacto financeiro e estrutural da crise.", profile: "b2b", image: JOURNALIST_IMAGES.flavia }
       ]
     },
     {
       id: 6,
       topic: "Cinema e Narrativas sobre Comunicação",
-      question: "6. Qual obra audiovisual sobre o universo da comunicação mais prende a sua atenção?",
+      question: "Hora da pipoca. Qual filme/série sobre comunicação mais acelera seu coração?",
       options: [
-        { text: "Tramas sobre grandes impérios corporativos, jogos de poder, negociações bilionárias e manipulação de imagem pública.", profile: "b2b" },
-        { text: "Histórias sobre os bastidores dos algoritmos, manipulação por redes sociais e o poder invisível da análise de dados.", profile: "bigdata" },
-        { text: "Produções sobre o jornalismo investigativo combativo, a luta contra a falsa neutralidade e as apurações ao vivo sob pressão ética.", profile: "checador" },
-        { text: "Grandes investigações clássicas de rua, onde repórteres gastam a sola do sapato atrás de fontes confidenciais.", profile: "correspondente" }
+        { text: "Succession / Mad Men", profile: "b2b" },
+        { text: "A Rede Social / O Dilema das Redes", profile: "bigdata" },
+        { text: "The Newsroom / Não Olhe Para Cima", profile: "checador" },
+        { text: "Guerra Civil / The Post", profile: "correspondente" }
       ]
     },
     {
       id: 7,
-      topic: "Regras de Apuração e Sigilo de Fontes",
-      question: "7. Uma fonte confidencial repassa uma revelação bombástica sob sigilo total e proibição de citação direta. Como você conduz o trabalho?",
+      topic: "Desinformação e Redes Familiares",
+      question: "Chega no grupo da família uma teoria da conspiração bizarra (com direito a áudio encaminhado com voz de robô). Como você reage?",
       options: [
-        { text: "Utilizo a pista apenas para orientar a apuração, mas busco provas documentais irrefutáveis, já que não posso atribuir nada à fonte.", profile: "checador" },
-        { text: "Tento negociar com a assessoria para permitir ao menos uma atribuição genérica, como 'um executivo de alto escalão do setor'.", profile: "b2b" },
-        { text: "Embarco imediatamente para cobrir os desdobramentos no local dos acontecimentos, resguardando o sigilo da fonte com rigor.", profile: "correspondente" },
-        { text: "Cruzo a informação recebida com bancos de dados vazados e utilizo ferramentas estatísticas para comprovar a hipótese.", profile: "bigdata" }
+        { text: "Silencia o grupo. Você já cobre treta e caos o suficiente o dia todo para mediar conflito no almoço de domingo.", profile: "correspondente" },
+        { text: "Envia 3 links de agências de checagem, um print grifado e escreve um textão passivo-agressivo desmentindo o áudio.", profile: "checador" },
+        { text: "Fica quieto, mas usa o áudio como dado para documentar a propagação de desinformação em redes hiperconectadas.", profile: "bigdata" },
+        { text: "Avalia a possibilidade de debater com a pessoa, o retorno emocional e político dessa atitude, correndo o risco de apenas reagir com um emoji.", profile: "b2b" }
       ]
     },
     {
       id: 8,
-      topic: "Abertura da Notícia e Estrutura Textual",
-      question: "8. Um colega entrega um texto sobre um desastre com excesso de adjetivos, narrativa enrolada e voz passiva. Qual orientação você aplica?",
+      topic: "Estrutura do Texto e Pirâmide Invertida",
+      question: "Um colega entrega um texto sobre um desastre com excesso de adjetivos, narrativa enrolada e voz passiva. O que você sugere ao seu colega?",
       options: [
-        { text: "Transformar as estatísticas escondidas no meio do texto em um infográfico destacado logo no início da reportagem.", profile: "bigdata" },
-        { text: "Eliminar sentimentalismos. Precisamos de fatos comprovados com clareza. Não se deve florear uma tragédia.", profile: "checador" },
-        { text: "Mostrar em vez de apenas contar: cortar adjetivos, priorizar verbos de ação e colocar as informações principais no lide da matéria.", profile: "correspondente" },
-        { text: "Destacar o impacto financeiro e as consequências econômicas na abertura, pois é isso que o mercado quer entender.", profile: "b2b" }
+        { text: "Transformar as informações mais importantes em um gráfico interativo ou informação visual para facilitar o entendimento.", profile: "bigdata" },
+        { text: "Tirar os eufemismos e a enrolação. Focar em fatos verificados e sem enfeitar o desastre para diminuir o impacto da realidade.", profile: "checador" },
+        { text: "Mostrar em vez de contar: cortar os adjetivos, priorizar verbos de ação e inverter a pirâmide para o público entender de cara.", profile: "correspondente" },
+        { text: "Focar no frame de \"Consequências Econômicas\" na matéria, para ela ser mais factual explicando como o mercado e a sociedade serão afetados.", profile: "b2b" }
       ]
     },
     {
       id: 9,
-      topic: "Prazo Crítico e Gestão de Imprevistos",
-      question: "9. Faltam cinco minutos para o encerramento da edição. O sistema de publicação trava, as redes caem e o editor se desespera. Como você reage?",
+      topic: "Cultura de Redação e Press Kits",
+      question: "Chega comida de graça na copa da redação do jornal como parte de um press kit enviado. O que você faz?",
       options: [
-        { text: "Acesso o código-fonte da página, contorno o sistema travado e publico o conteúdo diretamente na estrutura digital.", profile: "bigdata" },
-        { text: "Mantenho a calma enquanto tento rotear a internet pelo celular, porque meu voo para a próxima cobertura parte em breve.", profile: "correspondente" },
-        { text: "Envio rapidamente uma nota oficial de esclarecimento para os parceiros e partes interessadas a fim de ganhar tempo.", profile: "b2b" },
-        { text: "Mantenho a serenidade. Sem uma dupla checagem dos fatos eu não aperto o botão de publicar; a precisão vem antes da pressa.", profile: "checador" }
+        { text: "Passa correndo na copa, joga dois salgados na mochila e volta ao trabalho, porque sua pauta não espera ninguém.", profile: "correspondente" },
+        { text: "Checa qual a empresa que enviou o press kit para pesquisar as últimas notícias relacionadas à marca e desconfia que pode ter algo por trás.", profile: "checador" },
+        { text: "Calcula o melhor momento de passar na copa considerando seu próprio horário de almoço, as pautas que precisam entregar, e o horário dos demais colegas.", profile: "bigdata" },
+        { text: "Checa qual a empresa que enviou o press kit para conhecer mais sobre a marca e entender se esse envio de press kit tem a ver com alguma ação recente.", profile: "b2b" }
       ]
     },
     {
       id: 10,
       topic: "Enquadramentos Noticiosos e Abordagens",
-      question: "10. Ao noticiar a aprovação de uma nova legislação relevante, qual ângulo da cobertura você prioriza naturalmente?",
+      question: "Ao noticiar a aprovação de uma nova legislação relevante, qual ângulo da cobertura você prioriza naturalmente?",
       options: [
         { text: "Contradições e conflitos: confrontar as declarações dos parlamentares com a realidade factual do texto legal.", profile: "checador" },
         { text: "Atribuição de responsabilidade: mapear grandes séries históricas para demonstrar numericamente quem causou o problema.", profile: "bigdata" },
@@ -183,112 +191,112 @@ const QUESTIONS_DATA: Record<Language, Question[]> = {
   en: [
     {
       id: 1,
-      topic: "Global Breaking News & Verification",
-      question: "1. A global social media scandal erupts involving a pop superstar and a prominent European politician. What is your immediate instinct?",
+      topic: "Global Scandal & Social Media",
+      question: "A global Twitter scandal erupts involving Taylor Swift and a European politician. What is your first instinct?",
       options: [
-        { text: "Contact sources in Europe to understand cultural nuances and local language before publishing anything.", profile: "correspondente" },
-        { text: "Analyze the metrics: execute an automated script to scrape thousands of posts and detect bot patterns in trending hashtags.", profile: "bigdata" },
-        { text: "Hold the team back: 'We must verify whether the video is an AI deepfake before publishing!'.", profile: "checador" },
-        { text: "Assess the immediate fallout on the record label's market valuation and the tour's corporate sustainability index.", profile: "b2b" }
+        { text: "Call sources in Europe to understand the context and search for other international news outlets.", profile: "correspondente" },
+        { text: "Analyze the trending topics to see what the top tweets are saying (maybe even run a script?).", profile: "bigdata" },
+        { text: "Check if it isn't fake news before publishing anything (and refresh Taylor's profile every 5 seconds).", profile: "checador" },
+        { text: "Will this affect her upcoming tour?.", profile: "b2b" }
       ]
     },
     {
       id: 2,
       topic: "Corporate Speak & PR Spin",
-      question: "2. A foreign corporate press release arrives: the CEO announces 'downsizing to streamline operations' and cites 'strategic debt'. What do you read between the lines?",
+      question: "A foreign press release arrives in the newsroom from a CEO announcing a 'restructuring to streamline operations'. What is your reaction?",
       options: [
-        { text: "Classic PR spin. I will turn this into a concise market intelligence briefing for institutional investors.", profile: "b2b" },
-        { text: "I will cross-reference these terms with the company's financial balance sheets in a detailed spreadsheet model.", profile: "bigdata" },
-        { text: "I will translate this for our local readership, explaining how regional employment and branch offices will be affected.", profile: "correspondente" },
-        { text: "Pure corporate euphemisms. Our job is to expose the truth: mass layoffs and severe insolvency.", profile: "checador" }
+        { text: "Turn this into a financial market intelligence briefing.", profile: "b2b" },
+        { text: "Cross-reference the company's financial data with the announced figures.", profile: "bigdata" },
+        { text: "Translate this for my local audience showing how it will affect our city's branch.", profile: "correspondente" },
+        { text: "Blatant lie wrapped in euphemisms! They are conducting mass layoffs and are drowning in debt.", profile: "checador" }
       ]
     },
     {
       id: 3,
-      topic: "Newsroom Habits & Deadline Culture",
-      question: "3. Fast-paced deadline scene: What must be on your desk or open in your browser tabs at closing time?",
+      topic: "Browser Essentials & Newsroom Habits",
+      question: "What must always be open in your browser?",
       options: [
-        { text: "The editorial stylebook, two ad blockers, and three tabs open to fact-checking organizations.", profile: "checador" },
-        { text: "A premium business network subscription, insulated travel mug, and the daily executive call roster.", profile: "b2b" },
-        { text: "Passport, universal plug adapters, and the language app with your study streak intact.", profile: "correspondente" },
-        { text: "Dual monitors, dark mode active, fresh coffee, advanced spreadsheets, and code editor open.", profile: "bigdata" }
+        { text: "An ad blocker extension", profile: "checador" },
+        { text: "A tab with your LinkedIn feed", profile: "b2b" },
+        { text: "A tab with Duolingo demanding you keep your streak", profile: "correspondente" },
+        { text: "Using 'Inspect Element' in DevTools", profile: "bigdata" }
       ]
     },
     {
       id: 4,
-      topic: "Neutrality versus False Balance",
-      question: "4. The editor wants to pit an acclaimed climate scientist against a flat-earth conspiracy theorist in the name of 'neutrality'. What do you say in the meeting?",
+      topic: "Neutrality & False Balance",
+      question: "The editor wants to invite 2 guests to a climate panel claiming 'neutrality'. What is your primary concern?",
       options: [
-        { text: "'I have four decades of climate datasets organized here. Giving a platform to unverified claims has no empirical basis.'", profile: "bigdata" },
-        { text: "'If one person says it is raining and another says it is dry, our job is to look out the window! That is false balance!'", profile: "checador" },
-        { text: "'This will destroy our institutional credibility with reputable partners and advertisers!'", profile: "b2b" },
-        { text: "'The reporting rule is clear: use the inverted pyramid, drop fringe theories, and lead with verified facts.'", profile: "correspondente" }
+        { text: "Search for global warming data to fuel the discussion outline", profile: "bigdata" },
+        { text: "Check the background of both guests to understand their authority on the topic", profile: "checador" },
+        { text: "Link the discussion to the media channels the guests already dominate", profile: "b2b" },
+        { text: "Understand the influence of these guests in their respective markets and regions (if they are from different regions)", profile: "correspondente" }
       ]
     },
     {
       id: 5,
-      topic: "Semantic Traps & False Friends",
-      question: "5. False friend alert! A foreign news wire reports: 'The Mayor realized a comprehensive policy about the police'. How do you translate and edit this accurately?",
+      topic: "Global Journalism Icons",
+      question: "Who is your favorite global journalism icon?",
       options: [
-        { text: "Condense it into an executive briefing focusing on the economic and regulatory impact of the announced public guidelines.", profile: "b2b" },
-        { text: "Apply precise vocabulary: 'The mayor enacted a broad public security policy', avoiding literal traps for 'perceived' or 'sympathetic'.", profile: "correspondente" },
-        { text: "Question the wording and contact official spokespeople to confirm whether the measure was merely acknowledged or actually enacted.", profile: "checador" },
-        { text: "Bypass the confusing prose, extract open municipal crime databases, and build an interactive statistics dashboard.", profile: "bigdata" }
+        { text: "Bianca Rothier: Going live directly from Geneva, in the freezing snow.", profile: "correspondente", image: JOURNALIST_IMAGES.bianca },
+        { text: "Natuza Nery: Fact-checking claims live on air with verified data in her earpiece.", profile: "checador", image: JOURNALIST_IMAGES.natuza },
+        { text: "Sérgio Spagnuolo: Running data analysis to see how international markets will react.", profile: "bigdata", image: JOURNALIST_IMAGES.spagnuolo },
+        { text: "Flávia Oliveira: Explaining the financial and structural impact of the crisis.", profile: "b2b", image: JOURNALIST_IMAGES.flavia }
       ]
     },
     {
       id: 6,
       topic: "Cinema & Media Narratives",
-      question: "6. Which film or series about media and journalism resonates most with you?",
+      question: "Popcorn time! Which film or TV series about media gets your heart racing?",
       options: [
-        { text: "Narratives about corporate power struggles, boardroom politics, billion-dollar mergers, and public perception.", profile: "b2b" },
-        { text: "Stories about algorithmic power, social media engineering, data harvesting, and computational influence.", profile: "bigdata" },
-        { text: "Dramas depicting hard-hitting investigative journalism, resisting false neutrality, and live reporting under ethical scrutiny.", profile: "checador" },
-        { text: "Classic shoe-leather investigations where reporters hit the streets and cultivate confidential sources.", profile: "correspondente" }
+        { text: "Succession / Mad Men", profile: "b2b" },
+        { text: "The Social Network / The Social Dilemma", profile: "bigdata" },
+        { text: "The Newsroom / Don't Look Up", profile: "checador" },
+        { text: "Civil War / The Post", profile: "correspondente" }
       ]
     },
     {
       id: 7,
-      topic: "Sourcing Rules & Confidentiality",
-      question: "7. A confidential source shares explosive revelations under 'Deep Background' with total anonymity. How do you proceed?",
+      topic: "Disinformation & Family Chat Groups",
+      question: "A bizarre conspiracy theory arrives in the family chat group (complete with a forwarded audio in a robot voice). How do you react?",
       options: [
-        { text: "Use the tip strictly as an investigative roadmap, but seek ironclad documentary proof since the source cannot be quoted.", profile: "checador" },
-        { text: "Negotiate with their communications officer to allow an attribution such as 'a senior sector executive'.", profile: "b2b" },
-        { text: "Depart immediately to report the developments on the ground while safeguarding source confidentiality at all costs.", profile: "correspondente" },
-        { text: "Cross-examine the tip against leaked document archives and use statistical validation to substantiate the claim.", profile: "bigdata" }
+        { text: "Mute the group. You already cover enough conflict and chaos all day to mediate arguments at Sunday lunch.", profile: "correspondente" },
+        { text: "Send 3 links from fact-checking agencies, a highlighted screenshot, and write a passive-aggressive essay debunking the audio.", profile: "checador" },
+        { text: "Stay quiet, but use the audio as raw data to document the spread of disinformation in hyperconnected networks.", profile: "bigdata" },
+        { text: "Weigh whether it's worth arguing, the emotional and political return of engaging, and risk simply replying with an emoji.", profile: "b2b" }
       ]
     },
     {
       id: 8,
-      topic: "Lead Construction & Textual Flow",
-      question: "8. A colleague submits a draft about a tragedy loaded with emotional adjectives, passive voice, and meandering prose. What guidance do you give?",
+      topic: "Textual Structure & Inverted Pyramid",
+      question: "A colleague submits a story about a disaster loaded with excessive adjectives, meandering prose, and passive voice. What do you suggest to them?",
       options: [
-        { text: "Take the statistics buried inside the text and convert them into an informative chart right at the top of the story.", profile: "bigdata" },
-        { text: "Strip away decorative sentimentalism. We need verified facts delivered cleanly; editorial ethics forbid romanticizing disaster.", profile: "checador" },
-        { text: "'Show, don't tell!' Cut unnecessary adjectives, rely on strong active verbs, and structure the essential facts in the lead.", profile: "correspondente" },
-        { text: "Lead with the economic repercussions and market consequences, because that is what stakeholders urgently need to understand.", profile: "b2b" }
+        { text: "Transform the most crucial information into an interactive graphic or visual data to make it easier to understand.", profile: "bigdata" },
+        { text: "Strip away euphemisms and stalling. Focus on verified facts without sugarcoating the disaster to diminish reality's impact.", profile: "checador" },
+        { text: "Show, don't tell: cut the adjectives, prioritize action verbs, and invert the pyramid so readers grasp it immediately.", profile: "correspondente" },
+        { text: "Focus on the 'Economic Consequences' frame to make the story more factual, explaining how markets and society will be affected.", profile: "b2b" }
       ]
     },
     {
       id: 9,
-      topic: "Critical Deadline & Crisis Management",
-      question: "9. Five minutes to publishing deadline: The content management platform freezes, social platforms go down, and the editor is panicked. How do you react?",
+      topic: "Newsroom Culture & Press Kits",
+      question: "Free food arrives in the newsroom pantry as part of a promotional press kit. What do you do?",
       options: [
-        { text: "Inspect page source code, bypass the frozen interface, and deploy the clean article markup directly.", profile: "bigdata" },
-        { text: "Maintain focus while tethering mobile internet under high pressure, knowing your departure flight leaves shortly.", profile: "correspondente" },
-        { text: "Promptly issue an official holding statement to partners and stakeholders to secure valuable breathing room.", profile: "b2b" },
-        { text: "Stay calm and composed. Without independent double-checking I will not hit publish; accuracy always trumps panic.", profile: "checador" }
+        { text: "Sprint through the pantry, stuff two snacks into your backpack, and dash back to work because your beat waits for no one.", profile: "correspondente" },
+        { text: "Check which company sent the press kit to investigate recent news about the brand, suspecting there might be hidden motives.", profile: "checador" },
+        { text: "Calculate the optimal time to visit the pantry, factoring in your own lunch break, pending deadlines, and colleagues' schedules.", profile: "bigdata" },
+        { text: "Check which company sent the press kit to learn more about the brand and analyze whether this gift ties into any recent corporate campaign.", profile: "b2b" }
       ]
     },
     {
       id: 10,
       topic: "News Framing & Story Angles",
-      question: "10. When covering the passage of significant new legislation, which angle do your eyes gravitate toward first?",
+      question: "When covering the passage of significant new legislation, which angle do you naturally prioritize?",
       options: [
-        { text: "Conflict and contradictions: examining whether political rhetoric matches the actual provisions of the legal text.", profile: "checador" },
-        { text: "Attribution of responsibility: mapping historical datasets to demonstrate numerically who caused the systemic issue.", profile: "bigdata" },
-        { text: "Human interest: telling compelling personal stories about how the law impacts everyday lives through vivid, direct reporting.", profile: "correspondente" },
-        { text: "Economic consequences: evaluating regulatory costs, fiscal revenue, business viability, and consumer market shifts.", profile: "b2b" }
+        { text: "Conflict and contradictions: confronting lawmakers' statements with the factual reality of the legal text.", profile: "checador" },
+        { text: "Attribution of responsibility: mapping historical time-series data to demonstrate numerically who caused the issue.", profile: "bigdata" },
+        { text: "Human interest: telling compelling stories of real people whose lives are impacted, using vivid and visual storytelling.", profile: "correspondente" },
+        { text: "Economic consequences: analyzing costs, taxes, gains, and losses for businesses and financial markets.", profile: "b2b" }
       ]
     }
   ]
@@ -1281,14 +1289,14 @@ export default function App() {
                       <button
                         key={idx}
                         onClick={() => handleSelectOption(opt.profile, idx)}
-                        className={`w-full text-left p-3.5 sm:p-4 rounded-[14px] border transition-all duration-200 ease-fluid flex items-start gap-3.5 group cursor-pointer active:scale-[0.985] min-h-[54px] ${
+                        className={`w-full text-left p-3 sm:p-3.5 rounded-[14px] border transition-all duration-200 ease-fluid flex ${opt.image ? 'items-center' : 'items-start'} gap-3 sm:gap-3.5 group cursor-pointer active:scale-[0.985] min-h-[54px] ${
                           isSelectedFeedback
                             ? 'bg-[#34A853]/10 border-[#34A853] shadow-premium-light'
                             : 'bg-[#F5FFF8] hover:bg-white border-[#D6EEDD] hover:border-[#34A853] hover:shadow-premium-light'
                         }`}
                       >
                         <span
-                          className={`w-6 h-6 rounded-full border text-xs font-semibold flex items-center justify-center shrink-0 transition-all duration-200 mt-0.5 ${
+                          className={`w-6 h-6 rounded-full border text-xs font-semibold flex items-center justify-center shrink-0 transition-all duration-200 ${opt.image ? '' : 'mt-0.5'} ${
                             isSelectedFeedback
                               ? 'bg-[#34A853] border-[#34A853] text-white scale-110'
                               : 'bg-white border-[#D6EEDD] group-hover:border-[#34A853] group-hover:bg-[#34A853] group-hover:text-white text-[#202923]'
@@ -1296,9 +1304,25 @@ export default function App() {
                         >
                           {isSelectedFeedback ? <Check className="w-3.5 h-3.5 text-white" /> : letter}
                         </span>
+
+                        {opt.image && (
+                          <img
+                            src={opt.image}
+                            alt=""
+                            className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl object-cover shrink-0 border border-[#D6EEDD] shadow-xs group-hover:scale-105 transition-transform duration-200 bg-white"
+                            loading="lazy"
+                          />
+                        )}
                         
                         <span className="flex-1 text-xs sm:text-sm leading-relaxed text-[#282D29] group-hover:text-[#0D0D0D] text-pretty">
-                          {opt.text}
+                          {opt.image && opt.text.includes(':') ? (
+                            <>
+                              <strong className="font-bold text-[#0D0D0D]">{opt.text.split(':')[0]}:</strong>
+                              {opt.text.slice(opt.text.indexOf(':') + 1)}
+                            </>
+                          ) : (
+                            opt.text
+                          )}
                         </span>
                       </button>
                     );
