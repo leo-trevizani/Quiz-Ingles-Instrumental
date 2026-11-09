@@ -18,7 +18,8 @@ import {
   Sparkles,
   Download,
   Loader2,
-  Copy
+  Copy,
+  MessageSquare
 } from 'lucide-react';
 
 export type Language = 'pt' | 'en';
@@ -305,27 +306,27 @@ const QUESTIONS_DATA: Record<Language, Question[]> = {
 const PROFILES_DATA: Record<Language, Record<ProfileKey, ProfileInfo>> = {
   pt: {
     correspondente: {
-      title: "O Correspondente Internacional",
+      title: "Correspondente Internacional",
       subtitle: "Cobertura Global e Reportagem Cultural",
       desc: "Você é movido pela apuração de campo, pela cultura e pelos fatos em tempo real. Domina a técnica da pirâmide invertida e sabe que no jornalismo direto 'menos é mais'. Falsos cognatos e armadilhas de linguagem não enganam você, pois compreende a comunicação como uma ferramenta viva de conexão cultural. Seu passaporte está em dia?",
       icon: Globe,
       image: PROFILE_IMAGES.correspondente,
       tagText: "Mundo e Sociedade",
       quote: "“Mostre os fatos em vez de usar adjetivos. Na pirâmide invertida, quem enrola perde o leitor.”",
-      skills: ["Domínio da Pirâmide Invertida", "Comunicação Internacional Direta", "Enquadramento de Interesse Humano", "Precisão sem Falsos Cognatos"]
+      skills: ["Domínio da Pirâmide Invertida", "Comunicação Internacional Direta", "Frame de Interesse Humano", "Precisão sem Falsos Cognatos"]
     },
     checador: {
-      title: "O Checador de Fatos",
-      subtitle: "Especialista em Verificação e Ética Jornalística",
-      desc: "Nada escapa do seu olhar crítico. Você segue a regra de ouro da verificação: se alguém diz que chove e outro diz que faz sol, o papel do jornalista é abrir a janela e checar. Você combate a falsa equivalência e a falsa neutralidade com firmeza. Sabe lidar com apurações sigilosas e desmascara manobras de comunicação institucional com facilidade.",
+      title: "Especialista em Checar Fatos",
+      subtitle: "Mestre em Verificação e Ética Jornalística",
+      desc: "Nada escapa do seu olhar crítico. Você segue a regra de ouro da verificação: se alguém diz que chove e outro diz que está seco, o seu trabalho é abrir a janela e checar. Você combate a falsa equivalência e a falsa neutralidade com firmeza. Sabe lidar com apurações sigilosas e desmascara manobras de comunicação institucional com facilidade.",
       icon: ShieldCheck,
       image: PROFILE_IMAGES.checador,
       tagText: "Ética e Verificação",
-      quote: "“Se um lado afirma que chove e o outro diz que faz sol, abra a janela antes de publicar.”",
-      skills: ["Apuração Rigorosa de Fontes", "Combate à Falsa Equivalência", "Desmonte de Discursos Institucionais", "Dupla Checagem Factual"]
+      quote: "“Se um lado afirma que chove e o outro diz que está seco, seu trabalho é abrir a janela antes de publicar.”",
+      skills: ["Combate à Falsa Equivalência", "Apuração Rigorosa de Fontes", "Dupla Checagem Factual", "Desmonte de Discursos Institucionais"]
     },
     bigdata: {
-      title: "O Jornalista de Dados",
+      title: "Jornalista de Dados",
       subtitle: "Investigação Quantitativa e Computacional",
       desc: "Para você, relatos podem ser tendenciosos, mas os números revelam a verdade quando bem tratados. Você não depende de comunicados prontos: extrai e cruza bases estatísticas completas. Suas planilhas, códigos de automação e infográficos encontram padrões onde a maioria só enxerga confusão. Informação estruturada é o seu maior trunfo.",
       icon: Database,
@@ -335,7 +336,7 @@ const PROFILES_DATA: Record<Language, Record<ProfileKey, ProfileInfo>> = {
       skills: ["Extração Automatizada de Dados", "Infografia e Visualização", "Mapeamento de Responsabilidade", "Evidência Empírica"]
     },
     b2b: {
-      title: "O Estrategista Corporativo",
+      title: "Chefe de Estratégia Corporativa",
       subtitle: "Inteligência de Mercado e Análise de Negócios",
       desc: "Você compreende perfeitamente o tabuleiro dos grandes negócios. É especialista em traduzir o jargão corporativo e os eufemismos de relações públicas em diagnósticos transparentes para investidores e tomadores de decisão. Sabe analisar custos, prever impactos econômicos e dialogar com clareza com o mercado.",
       icon: Briefcase,
@@ -347,43 +348,43 @@ const PROFILES_DATA: Record<Language, Record<ProfileKey, ProfileInfo>> = {
   },
   en: {
     correspondente: {
-      title: "The Foreign Correspondent",
+      title: "Foreign Correspondent",
       subtitle: "Global Beat & Cultural Reporting",
       desc: "You thrive on field reporting, cultural immersion, and real-time storytelling. You command the inverted pyramid and understand that direct journalism values clarity over fluff. False cognates never mislead you, because you treat language as a living medium of global connection. Is your passport ready?",
       icon: Globe,
       image: PROFILE_IMAGES.correspondente,
       tagText: "World & Culture",
-      quote: "“Show, don't tell. In the inverted pyramid, burying the lead loses the audience.”",
-      skills: ["Inverted Pyramid Mastery", "Global Communication", "Human Interest Framing", "Semantic Accuracy"]
+      quote: "“Show the facts instead of using adjectives. In the inverted pyramid, burying the lead loses the audience.”",
+      skills: ["Inverted Pyramid Mastery", "Direct Global Communication", "Human Interest Framing", "Semantic Accuracy"]
     },
     checador: {
-      title: "The Fact-Checker",
-      subtitle: "Verification & Media Ethics Specialist",
+      title: "Fact-Checking Specialist",
+      subtitle: "Master in Verification & Media Ethics",
       desc: "Nothing slips past your scrutiny. You live by the golden rule of investigative reporting: if someone says it is raining and another says it is dry, your duty is to open the window and verify. You challenge false balance and performative neutrality head-on, handle confidential sourcing with rigor, and dismantle corporate spin.",
       icon: ShieldCheck,
       image: PROFILE_IMAGES.checador,
       tagText: "Truth & Ethics",
-      quote: "“If one side says it is raining and the other says it is sunny, open the window before publishing.”",
-      skills: ["Rigorous Sourcing Protocols", "Challenging False Balance", "Debunking PR Spin", "Double-Check Verification"]
+      quote: "“If one side says it is raining and the other says it is dry, your job is to open the window before publishing.”",
+      skills: ["Challenging False Balance", "Rigorous Sourcing Protocols", "Double-Check Verification", "Debunking PR Spin"]
     },
     bigdata: {
-      title: "The Data Journalist",
-      subtitle: "Computational & Quantitative Investigation",
+      title: "Data Journalist",
+      subtitle: "Quantitative & Computational Investigation",
       desc: "To you, opinions can deceive, but clean numbers reveal reality. You do not wait for official handouts: you scrape, sanitize, and correlate vast datasets. Your spreadsheets, automated scripts, and interactive graphics locate actionable patterns where others see only noise. Structured data is your greatest edge.",
       icon: Database,
       image: PROFILE_IMAGES.bigdata,
       tagText: "Algorithms & Analytics",
-      quote: "“In God we trust. All others must bring clean datasets and verified spreadsheets.”",
-      skills: ["Automated Data Scraping", "Interactive Data Visualization", "Attribution of Responsibility", "Empirical Evidence"]
+      quote: "“In God we trust. For all other cases, bring consistent datasets and spreadsheets.”",
+      skills: ["Automated Data Scraping", "Infographics & Visualization", "Attribution of Responsibility", "Empirical Evidence"]
     },
     b2b: {
-      title: "The Corporate Strategist",
+      title: "Corporate Strategy Lead",
       subtitle: "Market Intelligence & Business Analysis",
       desc: "You master the chess game of global commerce. You excel at translating corporate speak and public relations euphemisms into transparent market intelligence for decision-makers. You quantify fiscal consequences, anticipate regulatory shifts, and articulate clear insights for executive stakeholders.",
       icon: Briefcase,
       image: PROFILE_IMAGES.b2b,
       tagText: "Strategy & Markets",
-      quote: "“Corporate euphemisms are invitations for those who know how to read between the lines.”",
+      quote: "“Corporate euphemisms are opportunities for those who know how to read between the lines.”",
       skills: ["Corporate Speak Decoding", "Economic Consequences Framing", "Stakeholder Briefings", "Market Trend Forecasting"]
     }
   }
@@ -557,12 +558,66 @@ async function loadImage(src: string): Promise<HTMLImageElement | null> {
   });
 }
 
+function drawQuoteText(
+  ctx: CanvasRenderingContext2D,
+  text: string,
+  x: number,
+  boxY: number,
+  boxH: number,
+  maxWidth: number,
+  lineHeight: number
+) {
+  const words = text.split(' ');
+  const lines: string[] = [];
+  let currentLine = '';
+
+  for (let n = 0; n < words.length; n++) {
+    const testLine = currentLine ? `${currentLine} ${words[n]}` : words[n];
+    const metrics = ctx.measureText(testLine);
+    if (metrics.width > maxWidth && n > 0) {
+      lines.push(currentLine);
+      currentLine = words[n];
+    } else {
+      currentLine = testLine;
+    }
+  }
+  if (currentLine) {
+    lines.push(currentLine);
+  }
+
+  const totalTextHeight = lines.length * lineHeight;
+  const startY = boxY + (boxH - totalTextHeight) / 2 + lineHeight * 0.74;
+
+  for (let i = 0; i < lines.length; i++) {
+    ctx.fillText(lines[i], x, startY + i * lineHeight);
+  }
+}
+
 async function createResultCardBlob(
   winningProfileData: ProfileInfo,
-  scoreSummary: { counts: Record<ProfileKey, number>; percentages: Record<ProfileKey, number>; winningProfile: ProfileKey },
-  profiles: Record<ProfileKey, ProfileInfo>,
+  _scoreSummary: { counts: Record<ProfileKey, number>; percentages: Record<ProfileKey, number>; winningProfile: ProfileKey },
+  _profiles: Record<ProfileKey, ProfileInfo>,
   lang: Language
 ): Promise<Blob | null> {
+  // Preload Instrument Sans web font to ensure canvas doesn't render fallback Arial
+  if (typeof document !== 'undefined' && document.fonts) {
+    try {
+      await Promise.all([
+        document.fonts.load('bold 60px "Instrument Sans"'),
+        document.fonts.load('bold 54px "Instrument Sans"'),
+        document.fonts.load('600 20px "Instrument Sans"'),
+        document.fonts.load('italic 27px "Instrument Sans"'),
+        document.fonts.load('600 22px "Instrument Sans"'),
+        document.fonts.load('bold 18px "Instrument Sans"'),
+        document.fonts.load('bold 16px "Instrument Sans"'),
+        document.fonts.load('500 18px "Instrument Sans"'),
+        document.fonts.ready
+      ]);
+    } catch (fontErr) {
+      console.warn('Font preload check failed', fontErr);
+    }
+  }
+
   // Preload profile image
   const profileImg = await loadImage(winningProfileData.image);
 
@@ -576,92 +631,75 @@ async function createResultCardBlob(
       return;
     }
 
-    // 1. Overall Background
-    ctx.fillStyle = '#F5FFF8';
+    // 1. Overall Background (Soft mint tone from reference)
+    ctx.fillStyle = '#EFF9F3';
     ctx.fillRect(0, 0, 1080, 1350);
 
-    // Subtle corner background accents
-    ctx.fillStyle = 'rgba(52, 168, 83, 0.05)';
-    ctx.beginPath();
-    ctx.arc(80, 80, 140, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.beginPath();
-    ctx.arc(1000, 1270, 160, 0, Math.PI * 2);
-    ctx.fill();
+    // 2. White Card Container with subtle ambient floating shadow
+    const cardX = 50;
+    const cardY = 42;
+    const cardW = 980;
+    const cardH = 1266;
+    const cardR = 42;
 
-    // 2. White Card Container (Outer Bezel)
-    drawRoundRect(ctx, 36, 32, 1008, 1286, 32);
+    ctx.save();
+    ctx.shadowColor = 'rgba(25, 45, 30, 0.08)';
+    ctx.shadowBlur = 32;
+    ctx.shadowOffsetY = 12;
+    drawRoundRect(ctx, cardX, cardY, cardW, cardH, cardR);
     ctx.fillStyle = '#FFFFFF';
     ctx.fill();
+    ctx.restore();
+
+    drawRoundRect(ctx, cardX, cardY, cardW, cardH, cardR);
     ctx.strokeStyle = '#D6EEDD';
-    ctx.lineWidth = 2.5;
+    ctx.lineWidth = 2;
     ctx.stroke();
 
-    // 3. Header Top Pill
-    const pillText = lang === 'pt' ? 'TESTE DE PERSONALIDADE' : 'PERSONALITY QUIZ';
-    ctx.font = 'bold 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    const pillTextWidth = ctx.measureText(pillText).width;
-    const pillWidth = pillTextWidth + 42;
-    drawRoundRect(ctx, 72, 64, pillWidth, 32, 16);
-    ctx.fillStyle = '#202923';
-    ctx.fill();
+    const contentX = 96;
+    const contentW = 888;
 
-    // Green dot in pill
+    // 3. Header Top Pill: • TESTE DE PERSONALIDADE (scaled up to 16px)
+    const pillText = lang === 'pt' ? 'TESTE DE PERSONALIDADE' : 'PERSONALITY TEST';
+    ctx.font = 'bold 16px "Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    const pillTextWidth = ctx.measureText(pillText).width;
+    const pillWidth = pillTextWidth + 52;
+    const pillHeight = 44;
+    const pillY = 82;
+
+    drawRoundRect(ctx, contentX, pillY, pillWidth, pillHeight, 22);
+    ctx.fillStyle = '#F0FAF3';
+    ctx.fill();
+    ctx.strokeStyle = '#D6EEDD';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    // Green dot inside pill
     ctx.beginPath();
-    ctx.arc(89, 80, 4.5, 0, Math.PI * 2);
+    ctx.arc(contentX + 18, pillY + 22, 5.5, 0, Math.PI * 2);
     ctx.fillStyle = '#34A853';
     ctx.fill();
 
-    ctx.fillStyle = '#FFFFFF';
-    ctx.fillText(pillText, 102, 85);
-
-    // 4. Header Titles
-    ctx.fillStyle = '#0D0D0D';
-    ctx.font = 'bold 26px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.fillText(lang === 'pt' ? 'Inglês Instrumental' : 'Instrumental English', 72, 124);
-
-    ctx.fillStyle = '#808080';
-    ctx.font = '500 15px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.fillText(lang === 'pt' ? 'Jornalismo & Bastidores • Prof. Leo Trevizani' : 'Journalism & Beat • Prof. Leo Trevizani', 72, 150);
-
-    // Separator line
-    ctx.strokeStyle = '#EAF5EE';
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    ctx.moveTo(72, 168);
-    ctx.lineTo(1008, 168);
-    ctx.stroke();
-
-    // 5. Eyebrow: Diagnóstico Editorial
-    drawRoundRect(ctx, 72, 186, 204, 26, 13);
-    ctx.fillStyle = '#F5FFF8';
-    ctx.fill();
-    ctx.strokeStyle = '#D6EEDD';
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
-
+    // Pill text
     ctx.fillStyle = '#202923';
-    ctx.font = 'bold 11px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.fillText(lang === 'pt' ? '✓ DIAGNÓSTICO EDITORIAL' : '✓ EDITORIAL DIAGNOSIS', 85, 203);
+    ctx.fillText(pillText, contentX + 34, pillY + 28);
 
-    // 6. Dominant Title & Subtitle
-    ctx.fillStyle = '#0D0D0D';
-    ctx.font = 'bold 34px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.fillText(winningProfileData.title, 72, 248);
+    // 4. Profile 3D Illustration Container (contentW x 420)
+    const imgX = contentX;
+    const imgY = 142;
+    const imgW = contentW;
+    const imgH = 420;
 
-    ctx.fillStyle = '#808080';
-    ctx.font = '600 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.fillText(winningProfileData.subtitle.toUpperCase(), 72, 274);
-
-    // 7. Profile 3D Illustration Image (936 x 370)
-    const imgX = 72;
-    const imgY = 292;
-    const imgW = 936;
-    const imgH = 370;
+    drawRoundRect(ctx, imgX, imgY, imgW, imgH, 26);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fill();
+    ctx.strokeStyle = '#E2F1E6';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
 
     if (profileImg) {
       ctx.save();
-      drawRoundRect(ctx, imgX, imgY, imgW, imgH, 18);
+      drawRoundRect(ctx, imgX, imgY, imgW, imgH, 26);
       ctx.clip();
 
       const imgAspect = profileImg.width / profileImg.height;
@@ -680,127 +718,127 @@ async function createResultCardBlob(
       ctx.restore();
 
       // Border outline
-      drawRoundRect(ctx, imgX, imgY, imgW, imgH, 18);
-      ctx.strokeStyle = '#D6EEDD';
-      ctx.lineWidth = 2;
-      ctx.stroke();
-    } else {
-      drawRoundRect(ctx, imgX, imgY, imgW, imgH, 18);
-      ctx.fillStyle = '#F5FFF8';
-      ctx.fill();
-      ctx.strokeStyle = '#D6EEDD';
-      ctx.lineWidth = 2;
+      drawRoundRect(ctx, imgX, imgY, imgW, imgH, 26);
+      ctx.strokeStyle = '#E2F1E6';
+      ctx.lineWidth = 1.5;
       ctx.stroke();
     }
 
-    // 8. Quote Statement Box
-    const quoteY = 680;
-    const quoteH = 104;
-    drawRoundRect(ctx, 72, quoteY, 936, quoteH, 14);
-    ctx.fillStyle = '#F5FFF8';
+    // 5. Dominant Profile Title & Subtitle (Scaled up to 60px with auto-fit)
+    const titleY = 636;
+    let titleFontSize = 60;
+    ctx.font = `bold ${titleFontSize}px "Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+    while (ctx.measureText(winningProfileData.title).width > contentW && titleFontSize > 44) {
+      titleFontSize -= 2;
+      ctx.font = `bold ${titleFontSize}px "Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+    }
+    ctx.fillStyle = '#0D0D0D';
+    ctx.fillText(winningProfileData.title, contentX, titleY);
+
+    const subtitleY = 684;
+    ctx.fillStyle = '#738279';
+    ctx.font = '600 20px "Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.fillText(winningProfileData.subtitle.toUpperCase(), contentX, subtitleY);
+
+    // 6. Quote Statement Box (Spacious, scaled up to 27px italic, vertically centered)
+    const quoteY = 724;
+    const quoteH = 134;
+    drawRoundRect(ctx, contentX, quoteY, contentW, quoteH, 18);
+    ctx.fillStyle = '#F2FAF5';
     ctx.fill();
     ctx.strokeStyle = '#D6EEDD';
     ctx.lineWidth = 1.5;
     ctx.stroke();
 
     // Left green accent border
-    drawRoundRect(ctx, 72, quoteY, 7, quoteH, 3.5);
+    drawRoundRect(ctx, contentX, quoteY, 10, quoteH, 5);
     ctx.fillStyle = '#34A853';
     ctx.fill();
 
-    // Quote text
-    ctx.fillStyle = '#282D29';
-    ctx.font = 'italic 17px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    wrapText(ctx, `"${winningProfileData.quote}"`, 98, quoteY + 36, 880, 25);
+    // Quote text (scaled to 27px)
+    ctx.fillStyle = '#202923';
+    ctx.font = 'italic 27px "Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    drawQuoteText(ctx, winningProfileData.quote, contentX + 32, quoteY, quoteH, contentW - 54, 42);
 
-    // 9. Highlighted Competencies
-    ctx.fillStyle = '#808080';
-    ctx.font = 'bold 11.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.fillText(lang === 'pt' ? 'COMPETÊNCIAS EM DESTAQUE:' : 'HIGHLIGHTED COMPETENCIES:', 72, 810);
+    // 7. Highlighted Competencies Section Header (scaled to 18px)
+    const compY = 896;
+    ctx.fillStyle = '#738279';
+    ctx.font = 'bold 18px "Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.fillText(lang === 'pt' ? 'COMPETÊNCIAS EM DESTAQUE:' : 'HIGHLIGHTED COMPETENCIES:', contentX, compY);
 
-    let skillX = 72;
-    const skillY = 824;
-    ctx.font = '600 13.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    winningProfileData.skills.forEach((skill) => {
-      const sw = ctx.measureText(skill).width;
-      const pillW = sw + 24;
-      if (skillX + pillW > 1008) return;
-      drawRoundRect(ctx, skillX, skillY, pillW, 28, 14);
-      ctx.fillStyle = '#F5FFF8';
+    // 8. 4 Skill Pills (Organized into 2 rows of 2 pills with soft mint background & scaled up 22px font)
+    const skills = winningProfileData.skills || [];
+    const pillH = 66;
+    const pillRadius = 33;
+    const pillGap = 18;
+    const pillColW = (contentW - pillGap) / 2;
+
+    const row1Y = 924;
+    const row2Y = 1004;
+
+    ctx.font = '600 22px "Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.textAlign = 'center';
+
+    // Skill 1 (Row 1, Col 1)
+    if (skills[0]) {
+      drawRoundRect(ctx, contentX, row1Y, pillColW, pillH, pillRadius);
+      ctx.fillStyle = '#F2FAF5';
       ctx.fill();
       ctx.strokeStyle = '#D6EEDD';
-      ctx.lineWidth = 1.2;
+      ctx.lineWidth = 1.8;
       ctx.stroke();
+      ctx.fillStyle = '#1D2620';
+      ctx.fillText(skills[0], contentX + pillColW / 2, row1Y + 41);
+    }
 
-      ctx.fillStyle = '#202923';
-      ctx.fillText(skill, skillX + 12, skillY + 19);
-      skillX += pillW + 8;
-    });
-
-    // 10. Affinity Breakdown Section
-    ctx.fillStyle = '#808080';
-    ctx.font = 'bold 11.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.fillText(lang === 'pt' ? 'DISTRIBUIÇÃO DAS SUAS AFINIDADES:' : 'AFFINITY DISTRIBUTION:', 72, 880);
-
-    const profileKeys = Object.keys(profiles) as ProfileKey[];
-    let barStartY = 904;
-    profileKeys.forEach((key) => {
-      const prof = profiles[key];
-      const isWinner = key === scoreSummary.winningProfile;
-      const percent = scoreSummary.percentages[key];
-      const count = scoreSummary.counts[key];
-      const voteLabel = count === 1 ? (lang === 'pt' ? 'voto' : 'vote') : (lang === 'pt' ? 'votos' : 'votes');
-
-      // Title
-      ctx.fillStyle = isWinner ? '#34A853' : '#282D29';
-      ctx.font = isWinner ? 'bold 16px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' : '500 15px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-      ctx.fillText(prof.title, 72, barStartY);
-
-      // Score
-      const scoreText = `${count} ${voteLabel} (${percent}%)`;
-      ctx.fillStyle = isWinner ? '#34A853' : '#808080';
-      ctx.font = isWinner ? 'bold 14px monospace' : '500 14px monospace';
-      const scoreWidth = ctx.measureText(scoreText).width;
-      ctx.fillText(scoreText, 1008 - scoreWidth, barStartY);
-
-      // Track
-      drawRoundRect(ctx, 72, barStartY + 8, 936, 9, 4.5);
-      ctx.fillStyle = '#EAF5EE';
+    // Skill 2 (Row 1, Col 2)
+    if (skills[1]) {
+      const col2X = contentX + pillColW + pillGap;
+      drawRoundRect(ctx, col2X, row1Y, pillColW, pillH, pillRadius);
+      ctx.fillStyle = '#F2FAF5';
       ctx.fill();
+      ctx.strokeStyle = '#D6EEDD';
+      ctx.lineWidth = 1.8;
+      ctx.stroke();
+      ctx.fillStyle = '#1D2620';
+      ctx.fillText(skills[1], col2X + pillColW / 2, row1Y + 41);
+    }
 
-      // Bar
-      const barWidth = Math.max(9, (percent / 100) * 936);
-      drawRoundRect(ctx, 72, barStartY + 8, barWidth, 9, 4.5);
-      ctx.fillStyle = isWinner ? '#34A853' : '#808080';
+    // Skill 3 (Row 2, Col 1)
+    if (skills[2]) {
+      drawRoundRect(ctx, contentX, row2Y, pillColW, pillH, pillRadius);
+      ctx.fillStyle = '#F2FAF5';
       ctx.fill();
+      ctx.strokeStyle = '#D6EEDD';
+      ctx.lineWidth = 1.8;
+      ctx.stroke();
+      ctx.fillStyle = '#1D2620';
+      ctx.fillText(skills[2], contentX + pillColW / 2, row2Y + 41);
+    }
 
-      barStartY += 52;
-    });
+    // Skill 4 (Row 2, Col 2)
+    if (skills[3]) {
+      const col2X = contentX + pillColW + pillGap;
+      drawRoundRect(ctx, col2X, row2Y, pillColW, pillH, pillRadius);
+      ctx.fillStyle = '#F2FAF5';
+      ctx.fill();
+      ctx.strokeStyle = '#D6EEDD';
+      ctx.lineWidth = 1.8;
+      ctx.stroke();
+      ctx.fillStyle = '#1D2620';
+      ctx.fillText(skills[3], col2X + pillColW / 2, row2Y + 41);
+    }
 
-    // 11. Card Footer
-    ctx.strokeStyle = '#EAF5EE';
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    ctx.moveTo(72, 1146);
-    ctx.lineTo(1008, 1146);
-    ctx.stroke();
-
-    ctx.fillStyle = '#0D0D0D';
-    ctx.font = 'bold 18px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.textAlign = 'center';
+    // 9. Card Footer (Scaled up to 18px, centered at bottom)
+    const footerY = 1242;
+    ctx.fillStyle = '#738279';
+    ctx.font = '500 18px "Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
     ctx.fillText(
-      lang === 'pt' ? 'Quem é você na fila do pão do Jornalismo Global?' : 'Who Are You in the Global Journalism Pecking Order?',
+      lang === 'pt'
+        ? '© 2026 Leo Trevizani • Inglês Instrumental aplicado ao Jornalismo'
+        : '© 2026 Leo Trevizani • Instrumental English applied to Journalism',
       540,
-      1182
-    );
-
-    ctx.fillStyle = '#808080';
-    ctx.font = '500 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.fillText('© 2026 Leo Trevizani • Nenhum estagiário foi explorado na criação deste quiz.', 540, 1212);
-    ctx.fillText(
-      lang === 'pt' ? 'Inglês Instrumental aplicado ao Jornalismo' : 'Instrumental English applied to Journalism',
-      540,
-      1236
+      footerY
     );
 
     ctx.textAlign = 'start'; // reset
@@ -967,6 +1005,13 @@ export default function App() {
         setTimeout(() => URL.revokeObjectURL(url), 4000);
       };
 
+      const shareTitle = lang === 'pt'
+        ? `Quiz de Inglês Instrumental: Meu perfil é ${winningProfileData.title}`
+        : `Instrumental English Quiz: My role is ${winningProfileData.title}`;
+      const shareText = lang === 'pt'
+        ? `Fiz o quiz de personalidade de Inglês Instrumental do Prof. Leo Trevizani e meu perfil dominante foi ${winningProfileData.title}. Confira e acesse: leo-trevizani.github.io/Quiz-Ingles-Instrumental`
+        : `I took the Instrumental English personality quiz by Prof. Leo Trevizani and my dominant profile was ${winningProfileData.title}. Check it out at: leo-trevizani.github.io/Quiz-Ingles-Instrumental`;
+
       if (mode === 'download') {
         triggerDownload();
         setShareToast(lang === 'pt' ? 'Imagem baixada no seu dispositivo!' : 'Image downloaded to your device!');
@@ -977,20 +1022,33 @@ export default function App() {
         let copied = false;
         if (navigator.clipboard && window.ClipboardItem) {
           try {
+            // Provide BOTH image and accompanying text in the clipboard item
+            const textBlob = new Blob([shareText], { type: 'text/plain' });
             await navigator.clipboard.write([
-              new ClipboardItem({ 'image/png': blob })
+              new ClipboardItem({
+                'image/png': blob,
+                'text/plain': textBlob
+              })
             ]);
             copied = true;
           } catch (clipErr) {
-            console.warn('Clipboard write error', clipErr);
+            console.warn('Multi-MIME clipboard write failed, trying image-only fallback', clipErr);
+            try {
+              await navigator.clipboard.write([
+                new ClipboardItem({ 'image/png': blob })
+              ]);
+              copied = true;
+            } catch (fallbackErr) {
+              console.warn('Clipboard write fallback error', fallbackErr);
+            }
           }
         }
 
         if (copied) {
           setShareToast(
             lang === 'pt'
-              ? '✓ Imagem copiada! Abra a conversa no WhatsApp e cole com Ctrl+V (ou Colar).'
-              : '✓ Image copied! Open WhatsApp chat and paste with Ctrl+V (or Paste).'
+              ? '✓ Imagem e mensagem copiadas! Cole no WhatsApp (Ctrl+V) — o card e o texto irão juntos.'
+              : '✓ Image and message copied! Paste into WhatsApp (Ctrl+V) — the card and text will go together.'
           );
         } else {
           triggerDownload();
@@ -1004,19 +1062,20 @@ export default function App() {
       }
 
       // mode === 'share'
-      // Try to also copy to clipboard in parallel so it's ready to paste
+      // Try to also copy to clipboard in parallel with both image and text
       if (navigator.clipboard && window.ClipboardItem) {
+        const textBlob = new Blob([shareText], { type: 'text/plain' });
         navigator.clipboard.write([
-          new ClipboardItem({ 'image/png': blob })
-        ]).catch(() => {});
+          new ClipboardItem({
+            'image/png': blob,
+            'text/plain': textBlob
+          })
+        ]).catch(() => {
+          navigator.clipboard.write([
+            new ClipboardItem({ 'image/png': blob })
+          ]).catch(() => {});
+        });
       }
-
-      const shareTitle = lang === 'pt'
-        ? `Quiz de Jornalismo Moderno: Meu perfil é ${winningProfileData.title}`
-        : `Modern Journalism Quiz: My role is ${winningProfileData.title}`;
-      const shareText = lang === 'pt'
-        ? `Fiz o quiz de Inglês Instrumental do Prof. Leo Trevizani e meu perfil dominante foi ${winningProfileData.title}! Confira:`
-        : `I took Prof. Leo Trevizani's Instrumental English quiz and my profile is ${winningProfileData.title}! Check it out:`;
 
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
         await navigator.share({
@@ -1060,6 +1119,36 @@ export default function App() {
       setIsGeneratingImage(false);
       setTimeout(() => setShareToast(null), 5000);
     }
+  };
+
+  const handleCopyShareText = async () => {
+    const text = lang === 'pt'
+      ? `Fiz o quiz de personalidade de Inglês Instrumental do Prof. Leo Trevizani e meu perfil dominante foi ${winningProfileData.title}. Confira e acesse: leo-trevizani.github.io/Quiz-Ingles-Instrumental`
+      : `I took the Instrumental English personality quiz by Prof. Leo Trevizani and my dominant profile was ${winningProfileData.title}. Check it out at: leo-trevizani.github.io/Quiz-Ingles-Instrumental`;
+
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+      }
+      setShareToast(
+        lang === 'pt'
+          ? '✓ Mensagem copiada! Cole no WhatsApp junto com o card.'
+          : '✓ Message copied! Paste into WhatsApp along with the card.'
+      );
+    } catch {
+      setShareToast(lang === 'pt' ? 'Erro ao copiar mensagem.' : 'Error copying message.');
+    }
+    setTimeout(() => setShareToast(null), 4500);
   };
 
   const t = {
@@ -1279,24 +1368,73 @@ export default function App() {
                   </h2>
                 </div>
 
-                {/* Options Stack (Haptic Feedback & concentric curves) */}
-                <div className="space-y-2.5 pt-1">
+                {/* Options Layout (2x2 Grid for Question 5; Vertical Stack for all other questions) */}
+                <div className={currentQ.id === 5 ? "grid grid-cols-2 gap-2.5 sm:gap-4 pt-1" : "space-y-2.5 pt-1"}>
                   {currentOptions.map((opt, idx) => {
                     const letter = String.fromCharCode(65 + idx);
                     const isSelectedFeedback = selectedFeedbackIndex === idx;
 
+                    // Question 5: 2x2 grid card with large photo, text below, no A/B/C/D badge
+                    if (currentQ.id === 5) {
+                      const colonIdx = opt.text.indexOf(':');
+                      const name = colonIdx !== -1 ? opt.text.slice(0, colonIdx) : opt.text;
+                      const description = colonIdx !== -1 ? opt.text.slice(colonIdx + 1).trim() : '';
+
+                      return (
+                        <button
+                          key={idx}
+                          onClick={() => handleSelectOption(opt.profile, idx)}
+                          className={`w-full text-center p-2 sm:p-3 rounded-[16px] sm:rounded-[20px] border transition-all duration-200 ease-fluid flex flex-col items-center group cursor-pointer active:scale-[0.98] ${
+                            isSelectedFeedback
+                              ? 'bg-[#34A853]/10 border-[#34A853] shadow-premium-light ring-2 ring-[#34A853]/50'
+                              : 'bg-[#F5FFF8] hover:bg-white border-[#D6EEDD] hover:border-[#34A853] hover:shadow-premium-light'
+                          }`}
+                        >
+                          {/* Large Portrait Image Container */}
+                          <div className="relative w-full aspect-square overflow-hidden rounded-[12px] sm:rounded-[15px] border border-[#D6EEDD] bg-white shadow-xs">
+                            {opt.image && (
+                              <img
+                                src={opt.image}
+                                alt={name}
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                loading="lazy"
+                              />
+                            )}
+                            {isSelectedFeedback && (
+                              <div className="absolute top-2 right-2 w-6 h-6 rounded-full bg-[#34A853] text-white flex items-center justify-center shadow-md animate-scaleUp">
+                                <Check className="w-3.5 h-3.5 text-white" />
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Text below photo */}
+                          <div className="mt-2 sm:mt-2.5 text-center w-full space-y-0.5 sm:space-y-1">
+                            <p className="font-bold text-xs sm:text-sm text-[#0D0D0D] group-hover:text-[#34A853] transition-colors leading-tight">
+                              {name}
+                            </p>
+                            {description && (
+                              <p className="text-[11px] sm:text-xs text-[#808080] group-hover:text-[#282D29] leading-snug text-pretty">
+                                {description}
+                              </p>
+                            )}
+                          </div>
+                        </button>
+                      );
+                    }
+
+                    // Standard vertical list with A/B/C/D letters for all other questions
                     return (
                       <button
                         key={idx}
                         onClick={() => handleSelectOption(opt.profile, idx)}
-                        className={`w-full text-left p-3 sm:p-3.5 rounded-[14px] border transition-all duration-200 ease-fluid flex ${opt.image ? 'items-center' : 'items-start'} gap-3 sm:gap-3.5 group cursor-pointer active:scale-[0.985] min-h-[54px] ${
+                        className={`w-full text-left p-3.5 sm:p-4 rounded-[14px] border transition-all duration-200 ease-fluid flex items-start gap-3.5 group cursor-pointer active:scale-[0.985] min-h-[54px] ${
                           isSelectedFeedback
                             ? 'bg-[#34A853]/10 border-[#34A853] shadow-premium-light'
                             : 'bg-[#F5FFF8] hover:bg-white border-[#D6EEDD] hover:border-[#34A853] hover:shadow-premium-light'
                         }`}
                       >
                         <span
-                          className={`w-6 h-6 rounded-full border text-xs font-semibold flex items-center justify-center shrink-0 transition-all duration-200 ${opt.image ? '' : 'mt-0.5'} ${
+                          className={`w-6 h-6 rounded-full border text-xs font-semibold flex items-center justify-center shrink-0 transition-all duration-200 mt-0.5 ${
                             isSelectedFeedback
                               ? 'bg-[#34A853] border-[#34A853] text-white scale-110'
                               : 'bg-white border-[#D6EEDD] group-hover:border-[#34A853] group-hover:bg-[#34A853] group-hover:text-white text-[#202923]'
@@ -1305,24 +1443,8 @@ export default function App() {
                           {isSelectedFeedback ? <Check className="w-3.5 h-3.5 text-white" /> : letter}
                         </span>
 
-                        {opt.image && (
-                          <img
-                            src={opt.image}
-                            alt=""
-                            className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl object-cover shrink-0 border border-[#D6EEDD] shadow-xs group-hover:scale-105 transition-transform duration-200 bg-white"
-                            loading="lazy"
-                          />
-                        )}
-                        
                         <span className="flex-1 text-xs sm:text-sm leading-relaxed text-[#282D29] group-hover:text-[#0D0D0D] text-pretty">
-                          {opt.image && opt.text.includes(':') ? (
-                            <>
-                              <strong className="font-bold text-[#0D0D0D]">{opt.text.split(':')[0]}:</strong>
-                              {opt.text.slice(opt.text.indexOf(':') + 1)}
-                            </>
-                          ) : (
-                            opt.text
-                          )}
+                          {opt.text}
                         </span>
                       </button>
                     );
