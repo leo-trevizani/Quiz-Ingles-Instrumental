@@ -46,10 +46,10 @@ const getAssetUrl = (path: string): string => {
 };
 
 export const PROFILE_IMAGES: Record<ProfileKey, string> = {
-  correspondente: getAssetUrl('assets/aistudio/Foreign_Correspondent_4e2b453c.jpeg'),
-  checador: getAssetUrl('assets/aistudio/Fact_Checker_f586ccc1.jpeg'),
-  bigdata: getAssetUrl('assets/aistudio/Big_Data_Analyst_32e6d8b9.jpeg'),
-  b2b: getAssetUrl('assets/aistudio/Corporate_PR_d25fa1f9.jpeg')
+  correspondente: getAssetUrl('assets/profiles/Foreign_Correspondent_4e2b453c.jpeg'),
+  checador: getAssetUrl('assets/profiles/Fact_Checker_f586ccc1.jpeg'),
+  bigdata: getAssetUrl('assets/profiles/Big_Data_Analyst_32e6d8b9.jpeg'),
+  b2b: getAssetUrl('assets/profiles/Corporate_PR_d25fa1f9.jpeg')
 };
 
 export const JOURNALIST_IMAGES = {
